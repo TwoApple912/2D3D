@@ -6,25 +6,32 @@ public class PlayerMovement3D : MonoBehaviour
     private CharacterController controller;
 
     [SerializeField] private CinemachineVirtualCamera camera3D;
-    
+
     [Header("Movement")]
-    public float moveSpeed = 5f;
+    [SerializeField] private float moveSpeed = 7f;
+    [SerializeField] private float groundMaxMoveSpeed = 35f;
+    [SerializeField] private float airMaxMoveSpeed = 20f;
     [Space]
     public bool isGrounded;
     [SerializeField] private float checkRadius = 0.5f;
     [SerializeField] private float checkDistance = 0.666f;
     [SerializeField] private LayerMask groundLayer;
     [Space]
-    [SerializeField] private float maxJumpHeight = 3f;
+    [SerializeField] private float maxJumpHeight = 5f;
+    [SerializeField] private bool isJumping = false;
+
+    private Vector3 desiredVelocity;
+    private float acceleration;
+    private Vector3 currentMoveVelocity;
     
     [Header("Gravity")]
     [SerializeField] private Vector3 velocity;
-    [SerializeField] private float currentGravityMultiplier = 1f;
+    [SerializeField] private float currentGravityMultiplier = 1;
     [Space]
     [SerializeField] private float gravity = -9.81f;
-    [SerializeField] private float jumpGravityMultiplier = 0.75f;
-    [SerializeField] private float maxFallGravityMultiplier = 2f;
-    [SerializeField] private float gravityIncreaseRate = 1f;
+    [SerializeField] private float downwardGravityMultiplier = 6f;
+    [SerializeField] private float upwardGravityMultiplier = 1.7f;
+    private float defaultGravityScale = 1;
 
     private bool hasRun = false;
     
@@ -37,7 +44,8 @@ public class PlayerMovement3D : MonoBehaviour
     {
         Move();
         Jump();
-        
+
+        CalculateMoveVelocity();
         GroundCheck();
     }
 
@@ -55,46 +63,75 @@ public class PlayerMovement3D : MonoBehaviour
 
     void ApplyGravity()
     {
-        if (!isGrounded)
+        currentGravityMultiplier = defaultGravityScale;
+
+        if (velocity.y > 0 && isJumping)
         {
-            // Increase the gravity multiplier gradually until it reaches the maximum
-            if (currentGravityMultiplier < maxFallGravityMultiplier)
-            {
-                currentGravityMultiplier += gravityIncreaseRate * Time.deltaTime;
-                currentGravityMultiplier = Mathf.Min(currentGravityMultiplier, maxFallGravityMultiplier);
-            }
+            currentGravityMultiplier = upwardGravityMultiplier;
         }
-        else if (isGrounded && !(velocity.y > 0))
+        else if (velocity.y < 0 || !isJumping)
         {
-            currentGravityMultiplier = 1;
-            velocity.y = 0;
+            currentGravityMultiplier = downwardGravityMultiplier;
+            Debug.Log("nigger");
         }
+        //else if (controller.velocity.y == 0) currentGravityMultiplier = defaultGravityScale;
         
         velocity.y += gravity * currentGravityMultiplier * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
 
+    void CalculateMoveVelocity()
+    {
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+        
+        Vector3 forward = camera3D.transform.forward;
+        Vector3 right = camera3D.transform.right;
+        forward.y = 0; right.y = 0;
+
+        desiredVelocity = (forward * moveVertical + right * moveHorizontal) * Mathf.Max(moveSpeed, 0);
+    }
+    
     void Move()
     {
-        float moveHorizontal = Input.GetAxisRaw("Horizontal");
+        acceleration = controller.isGrounded ? groundMaxMoveSpeed : airMaxMoveSpeed;
+        float maxSpeedChange = acceleration;
+        currentMoveVelocity.x = Mathf.MoveTowards(currentMoveVelocity.x, desiredVelocity.x, maxSpeedChange);
+        currentMoveVelocity.z = Mathf.MoveTowards(currentMoveVelocity.z, desiredVelocity.z, maxSpeedChange);
+        
+        controller.Move(currentMoveVelocity * Time.deltaTime);
+
+        /*float moveHorizontal = Input.GetAxisRaw("Horizontal");
         float moveVertical = Input.GetAxisRaw("Vertical");
 
         Vector3 forward = camera3D.transform.forward;
         Vector3 right = camera3D.transform.right;
         forward.y = 0; right.y = 0;
         forward.Normalize(); right.Normalize();
-        
+
         Vector3 movement = (forward * moveVertical + right * moveHorizontal).normalized * moveSpeed;
-        controller.Move(movement * Time.deltaTime);
+        controller.Move(movement * Time.deltaTime);*/
     }
 
     void Jump()
     {
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
+            isJumping = true;
+            
             velocity.y = Mathf.Sqrt(maxJumpHeight * -2 * gravity);
-            currentGravityMultiplier = jumpGravityMultiplier;
+            
+            if (controller.velocity.y > 0)
+            {
+                velocity.y = Mathf.Max(velocity.y - controller.velocity.y, 0f);
+            }
+            else if (controller.velocity.y < 0)
+            {
+                velocity.y += Mathf.Abs(controller.velocity.y);
+            }
         }
+
+        if (Input.GetButtonUp("Jump")) isJumping = false;
     }
 
     void DebugDrawCapsule(Vector3 start, Vector3 end, float radius, Color color)

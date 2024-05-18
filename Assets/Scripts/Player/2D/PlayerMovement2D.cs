@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
@@ -7,8 +8,15 @@ public class PlayerMovement2D : MonoBehaviour
     private CapsuleCollider capsuleCollider;
 
     [Header("Movement")]
-    [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private float maxJumpHeight = 3f;
+    [SerializeField] private float moveSpeed = 4f;
+    [SerializeField] private float groundMaxAcceleration = 35f;
+    [SerializeField] private float airMaxAcceleration = 20f;
+    [SerializeField] private bool isJumping = false;
+    [SerializeField] private float jumpHeight = 5f;
+
+    private Vector3 desiredVelocity;
+    private float acceleration;
+    private float jumpSpeed;
 
     [Header("Step Climb")]
     [SerializeField] private bool lowerStepDetected;
@@ -27,15 +35,11 @@ public class PlayerMovement2D : MonoBehaviour
     public bool isGrounded;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckOffset = 0.1f;
-    
+
     [Header("Gravity")]
-    [SerializeField] private Vector3 velocity;
-    [SerializeField] private float currentGravityMultiplier = 1f;
-    [Space]
-    [SerializeField] private float gravity = -9.81f;
-    [SerializeField] private float jumpGravityMultiplier = 0.75f;
-    [SerializeField] private float maxFallGravityMultiplier = 1.25f;
-    [SerializeField] private float gravityIncreaseRate = 0.05f;
+    [SerializeField] private float downwardGravityMultiplier = 5f;
+    [SerializeField] private float upwardGravityMultiplier = 1.7f;
+    private float defaultGravityScale = 1f;
 
     void Start()
     {
@@ -53,20 +57,46 @@ public class PlayerMovement2D : MonoBehaviour
     void Update()
     {
         Jump();
-        GroundCheck();
+        
+        //GroundCheck();
+        CalculateMoveVelocity();
+        
         LockLocalRotation();
     }
 
     void FixedUpdate()
     {
         Move();
+        
         ApplyGravity();
+        
         CheckSlopeAndSteps();
     }
 
-    void GroundCheck()
+    private void OnCollisionExit(Collision other)
     {
-        Vector3 center = transform.position + capsuleCollider.center;
+        isGrounded = false;
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        GroundCheck(other);
+    }
+
+    private void OnCollisionStay(Collision other)
+    {
+        GroundCheck(other);
+    }
+
+    void GroundCheck(Collision other)
+    {
+        for (int i = 0; i < other.contactCount; i++)
+        {
+            Vector3 normal = other.GetContact(i).normal;
+            isGrounded |= normal.y >= 0.9f;
+        }
+        
+        /*Vector3 center = transform.position + capsuleCollider.center;
         Vector3 start = center + transform.forward * (capsuleCollider.height / 2 - capsuleCollider.radius);
         Vector3 end = center - transform.forward * (capsuleCollider.height / 2 - capsuleCollider.radius);
         start -= new Vector3(0, capsuleCollider.radius + groundCheckOffset, 0);
@@ -83,45 +113,67 @@ public class PlayerMovement2D : MonoBehaviour
         else
         {
             isGrounded = false;
-        }
+        }*/
     }
 
     void ApplyGravity()
     {
-        if (!isGrounded)
+        float gravityMultiplier = defaultGravityScale;
+        
+        if (rb.velocity.y > 0 && isJumping)
         {
-            if (currentGravityMultiplier < maxFallGravityMultiplier)
-            {
-                currentGravityMultiplier += gravityIncreaseRate * Time.fixedDeltaTime;
-                currentGravityMultiplier = Mathf.Min(currentGravityMultiplier, maxFallGravityMultiplier);
-            }
+            gravityMultiplier = upwardGravityMultiplier;
         }
-        else
+        else if (rb.velocity.y < 0 || !isJumping)
         {
-            currentGravityMultiplier = 1f;
-            if (velocity.y < 0) velocity.y = 0;
+            gravityMultiplier = downwardGravityMultiplier;
         }
-
-        velocity.y += gravity * currentGravityMultiplier * Time.fixedDeltaTime;
-        rb.velocity = new Vector3(rb.velocity.x, velocity.y, 0);
+        //else if (rb.velocity.y == 0) gravityMultiplier = defaultGravityScale;
+        
+        rb.velocity += Vector3.up * Physics.gravity.y * (gravityMultiplier - 1) * Time.fixedDeltaTime;
     }
 
+    void CalculateMoveVelocity()
+    {
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        Vector3 localMovement = new Vector3(moveHorizontal, 0, 0);
+        desiredVelocity = transform.TransformDirection(localMovement) * Mathf.Max(moveSpeed, 0);
+    }
+    
     void Move()
     {
-        float moveHorizontal = Input.GetAxisRaw("Horizontal");
-        Vector3 localMovement = new Vector3(moveHorizontal, 0, 0);
-        Vector3 globalMovement = transform.TransformDirection(localMovement) * moveSpeed;
-        rb.MovePosition(rb.position + globalMovement * Time.fixedDeltaTime);
+        Vector3 velocity = rb.velocity;
+        
+        acceleration = isGrounded ? groundMaxAcceleration : airMaxAcceleration;
+        float maxSpeedChange = acceleration * Time.deltaTime;
+        velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, maxSpeedChange);
+
+        rb.velocity = velocity;
     }
 
     void Jump()
     {
         if (isGrounded && Input.GetButtonDown("Jump"))
         {
-            velocity.y = Mathf.Sqrt(maxJumpHeight * -2 * gravity);
-            rb.velocity = new Vector3(rb.velocity.x, velocity.y, 0);
-            currentGravityMultiplier = jumpGravityMultiplier;
+            isJumping = true;
+            
+            jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
+
+            if (rb.velocity.y > 0)
+            {
+                jumpSpeed = Mathf.Max(jumpSpeed - rb.velocity.y, 0f);
+            }
+            else if (rb.velocity.y < 0)
+            {
+                jumpSpeed += Mathf.Abs(rb.velocity.y);
+            }
+
+            Vector3 velocity = rb.velocity;
+            velocity.y += jumpSpeed;
+            rb.velocity = velocity;
         }
+
+        if (Input.GetButtonUp("Jump")) isJumping = false;
     }
 
     void CheckSlopeAndSteps()
