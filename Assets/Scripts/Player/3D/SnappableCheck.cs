@@ -13,8 +13,9 @@ public class SnappableCheck : MonoBehaviour
     private void Start()
     {
         _snapDimensionToAxes = GameObject.Find("2D Dimension").GetComponent<SnapDimensionToAxes>();
-
         collider = GetComponent<Collider>();
+
+        checkLayer = LayerMask.GetMask("Default", "Level Element");
     }
 
     private void Update()
