@@ -126,20 +126,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera3D: {fileID: 0}
-  moveSpeed: 5
+  moveSpeed: 7
+  groundMaxMoveSpeed: 35
+  airMaxMoveSpeed: 20
   isGrounded: 0
   checkRadius: 0.5
   checkDistance: 0.666
   groundLayer:
     serializedVersion: 2
     m_Bits: 65
-  maxJumpHeight: 3
+  maxJumpHeight: 5
+  isJumping: 0
   velocity: {x: 0, y: 0, z: 0}
   currentGravityMultiplier: 1
   gravity: -9.81
-  jumpGravityMultiplier: 0.75
-  maxFallGravityMultiplier: 5
-  gravityIncreaseRate: 3
+  downwardGravityMultiplier: 6
+  upwardGravityMultiplier: 1.7
 --- !u!114 &5955728952637771031
 MonoBehaviour:
   m_ObjectHideFlags: 0

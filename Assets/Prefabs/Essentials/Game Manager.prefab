@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26f1930e0e3f3a346b3a07ab1d2bb94f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
+  currentState: 1
   character3D: {fileID: 0}
   character2D: {fileID: 0}
   virtualCam3D: {fileID: 0}
