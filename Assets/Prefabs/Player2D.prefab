@@ -42,11 +42,11 @@ GameObject:
   - component: {fileID: 1790076746235331655}
   - component: {fileID: 208487204971834738}
   - component: {fileID: 393956233234663566}
+  - component: {fileID: 2923446754102470602}
+  - component: {fileID: 2639552876686337687}
   - component: {fileID: 8994556308349522779}
   - component: {fileID: 2182800959046099479}
   - component: {fileID: 2832260962424131375}
-  - component: {fileID: 2923446754102470602}
-  - component: {fileID: 2639552876686337687}
   m_Layer: 3
   m_Name: Player2D
   m_TagString: Player
@@ -122,6 +122,54 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2923446754102470602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2041053513915061802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 091ce998d5f4e03478ed9f90cc1d6d82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5
+  groundMaxAcceleration: 35
+  airMaxAcceleration: 20
+  isJumping: 0
+  jumpHeight: 5
+  lowerStepDetected: 0
+  stepHeight: 0.5
+  stepSmooth: 0.1
+  stepCheckDistance: 0.61
+  stepBase: {fileID: 0}
+  stepUpper: {fileID: 0}
+  stepLower: {fileID: 0}
+  isGrounded: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 65
+  groundCheckOffset: -0.4
+  downwardGravityMultiplier: 5
+  upwardGravityMultiplier: 1.7
+--- !u!114 &2639552876686337687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2041053513915061802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0a063beeab768c4d9004cffdd25e29d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capsuleCollider: {fileID: 0}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 65
+  groundOffset: -0.1
 --- !u!54 &8994556308349522779
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -193,55 +241,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 2, z: 100}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2923446754102470602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2041053513915061802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 091ce998d5f4e03478ed9f90cc1d6d82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  maxJumpHeight: 3
-  lowerStepDetected: 0
-  stepHeight: 0.5
-  stepSmooth: 0.1
-  stepCheckDistance: 0.61
-  stepBase: {fileID: 0}
-  stepUpper: {fileID: 0}
-  stepLower: {fileID: 0}
-  isGrounded: 0
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 65
-  groundCheckOffset: -0.4
-  velocity: {x: 0, y: 0, z: 0}
-  currentGravityMultiplier: 1
-  gravity: -9.81
-  jumpGravityMultiplier: 0.75
-  maxFallGravityMultiplier: 10
-  gravityIncreaseRate: 1.75
---- !u!114 &2639552876686337687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2041053513915061802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0a063beeab768c4d9004cffdd25e29d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  capsuleCollider: {fileID: 0}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 65
-  groundOffset: -0.1
 --- !u!1 &3521891708241723997
 GameObject:
   m_ObjectHideFlags: 0

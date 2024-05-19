@@ -1,12 +1,14 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class SnappableCheck : MonoBehaviour
 {
     private SnapDimensionToAxes _snapDimensionToAxes;
-
     private Collider collider;
 
     public bool allowSnap = true;
+    [Space]
+    [SerializeField] private LayerMask checkLayer;
 
     private void Start()
     {
@@ -51,7 +53,7 @@ public class SnappableCheck : MonoBehaviour
         foreach (Vector3 point in points)
         {
             Debug.DrawRay(point, direction * length, Color.yellow);
-            if (Physics.Raycast(point, direction, length, 1 << LayerMask.NameToLayer("Level Element")))
+            if (Physics.Raycast(point, direction, length, checkLayer))
             {
                 hitCount++;
             }

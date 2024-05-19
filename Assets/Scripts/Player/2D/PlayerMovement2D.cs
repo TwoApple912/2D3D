@@ -18,18 +18,21 @@ public class PlayerMovement2D : MonoBehaviour
     private float acceleration;
     private float jumpSpeed;
 
-    [Header("Step Climb")]
-    [SerializeField] private bool lowerStepDetected;
+    [Header("Step Climb & Slope Check")]
+    [SerializeField] private float slopeThreshold = 45f;
+    [SerializeField] private Vector3 slopeMoveDirection;
+    /*[SerializeField] private bool lowerStepDetected;
     [Space]
     [SerializeField] private float stepHeight = 0.3f;
     [Tooltip("This is to determine how much character elevates upward when registered a stepable step. Updates every frames so it should create a smooth transition with small steps.")]
     [SerializeField] private float stepSmooth = 0.1f;
     [Tooltip("For some dark mischief, the CapsuleCollider works wih 0.51f while the BoxCollider works with 0.61f.")]
     [SerializeField] private float stepCheckDistance = 0.61f;
+    [SerializeField] private float stepCheckUpperOffset = 0.1f;
     [Space]
     [SerializeField] private GameObject stepBase;
     [SerializeField] private GameObject stepUpper;
-    [SerializeField] private GameObject stepLower;
+    [SerializeField] private GameObject stepLower;*/
     
     [Header("Ground Check")]
     public bool isGrounded;
@@ -46,12 +49,12 @@ public class PlayerMovement2D : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         
-        stepBase = transform.Find("stepBase").gameObject;
+        /*stepBase = transform.Find("stepBase").gameObject;
         stepUpper = transform.Find("stepUpper").gameObject;
         stepLower = transform.Find("stepLower").gameObject;
 
         stepUpper.transform.position = new Vector3(stepBase.transform.position.x, stepBase.transform.position.y + stepHeight, stepBase.transform.position.z);
-        stepLower.transform.position = new Vector3(stepBase.transform.position.x, stepBase.transform.position.y - stepHeight, stepBase.transform.position.z);
+        stepLower.transform.position = new Vector3(stepBase.transform.position.x, stepBase.transform.position.y - stepHeight, stepBase.transform.position.z);*/
     }
 
     void Update()
@@ -70,12 +73,13 @@ public class PlayerMovement2D : MonoBehaviour
         
         ApplyGravity();
         
-        CheckSlopeAndSteps();
+        CheckSteps();
     }
 
     private void OnCollisionExit(Collision other)
     {
         isGrounded = false;
+        //rb.useGravity = true;
     }
 
     private void OnCollisionEnter(Collision other)
@@ -93,7 +97,9 @@ public class PlayerMovement2D : MonoBehaviour
         for (int i = 0; i < other.contactCount; i++)
         {
             Vector3 normal = other.GetContact(i).normal;
-            isGrounded |= normal.y >= 0.9f;
+            isGrounded |= normal.y >= 0.6f;
+
+            //if (isGrounded) rb.useGravity = false;
         }
         
         /*Vector3 center = transform.position + capsuleCollider.center;
@@ -133,11 +139,38 @@ public class PlayerMovement2D : MonoBehaviour
         rb.velocity += Vector3.up * Physics.gravity.y * (gravityMultiplier - 1) * Time.fixedDeltaTime;
     }
 
+    private RaycastHit slopeHit;
+    private bool OnSlope()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, 0.5f))
+        {
+            if (slopeHit.normal != Vector3.up)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
     void CalculateMoveVelocity()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         Vector3 localMovement = new Vector3(moveHorizontal, 0, 0);
-        desiredVelocity = transform.TransformDirection(localMovement) * Mathf.Max(moveSpeed, 0);
+        Vector3 moveDirection = transform.TransformDirection(localMovement);
+        
+        if (!OnSlope()) desiredVelocity = moveDirection * Mathf.Max(moveSpeed, 0);
+        else
+        {
+            slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
+            desiredVelocity = slopeMoveDirection * Mathf.Max(moveSpeed, 0);
+        }
     }
     
     void Move()
@@ -147,6 +180,7 @@ public class PlayerMovement2D : MonoBehaviour
         acceleration = isGrounded ? groundMaxAcceleration : airMaxAcceleration;
         float maxSpeedChange = acceleration * Time.deltaTime;
         velocity.x = Mathf.MoveTowards(velocity.x, desiredVelocity.x, maxSpeedChange);
+        velocity.z = Mathf.MoveTowards(velocity.z, desiredVelocity.z, maxSpeedChange);
 
         rb.velocity = velocity;
     }
@@ -176,36 +210,36 @@ public class PlayerMovement2D : MonoBehaviour
         if (Input.GetButtonUp("Jump")) isJumping = false;
     }
 
-    void CheckSlopeAndSteps()
+    void CheckSteps()
     {
-        RaycastHit hitRightBase;
+        /*RaycastHit hitRightBase;
         Vector3 baseRStart = stepBase.transform.position + transform.right * stepCheckDistance + capsuleCollider.height / 2 * transform.forward;
         Vector3 baseREnd = stepBase.transform.position + transform.right * stepCheckDistance + capsuleCollider.height / 2 * -transform.forward;
         if (Physics.Linecast(baseRStart, baseREnd, out hitRightBase))
         {
             RaycastHit hitRightUpper;
-            if (!Physics.Linecast(baseRStart + transform.up.normalized * stepHeight + transform.right.normalized * 0.1f, baseREnd + transform.up.normalized * stepHeight + transform.right.normalized * 0.1f, out hitRightUpper))
+            if (!Physics.Linecast(baseRStart + transform.up.normalized * stepHeight + transform.right.normalized * 0.1f, baseREnd + transform.up.normalized * stepHeight + transform.right.normalized * stepCheckUpperOffset, out hitRightUpper))
             {
                 rb.position += new Vector3(0, stepSmooth, 0);
-                //Debug.Log(hitRightBase.transform.name);
+                Debug.Log(hitRightBase.transform.name);
             }
         }
-        
+
         RaycastHit hitLeftBase;
         Vector3 baseLStart = stepBase.transform.position - transform.right * stepCheckDistance + capsuleCollider.height / 2 * transform.forward;
         Vector3 baseLEnd = stepBase.transform.position - transform.right * stepCheckDistance + capsuleCollider.height / 2 * -transform.forward;
         if (Physics.Linecast(baseLStart, baseLEnd, out hitLeftBase))
         {
             RaycastHit hitLeftUpper;
-            if (!Physics.Linecast(baseLStart + transform.up.normalized * stepHeight - transform.right.normalized * 0.1f, baseLEnd + transform.up.normalized * stepHeight - transform.right.normalized * 0.1f, out hitLeftUpper))
+            if (!Physics.Linecast(baseLStart + transform.up.normalized * stepHeight - transform.right.normalized * 0.1f, baseLEnd + transform.up.normalized * stepHeight - transform.right.normalized * stepCheckUpperOffset, out hitLeftUpper))
             {
                 rb.position += new Vector3(0, stepSmooth, 0);
-                //Debug.Log(hitLeftBase.transform.name);
+                Debug.Log(hitLeftBase.transform.name);
             }
         }
-        
+
         Debug.DrawLine(baseRStart, baseREnd, Color.magenta);
-        Debug.DrawLine(baseRStart + transform.up.normalized * stepHeight + transform.right.normalized * 0.1f, baseREnd + transform.up.normalized * stepHeight + transform.right.normalized * 0.1f, Color.white);
+        Debug.DrawLine(baseRStart + transform.up.normalized * stepHeight + transform.right.normalized * 0.1f, baseREnd + transform.up.normalized * stepHeight + transform.right.normalized * stepCheckUpperOffset, Color.white);*/
     }
 
     void LockLocalRotation()

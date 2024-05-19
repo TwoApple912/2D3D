@@ -38,6 +38,8 @@ public class PlayerMovement3D : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+
+        camera3D = GameObject.Find("3D Camera").GetComponent<CinemachineVirtualCamera>();
     }
 
     void Update()
@@ -56,6 +58,8 @@ public class PlayerMovement3D : MonoBehaviour
 
     void GroundCheck()
     {
+        if (controller.isGrounded) velocity.y = 0;
+
         RaycastHit hit;
         isGrounded = Physics.SphereCast(transform.position, checkRadius, Vector3.down, out hit, checkDistance, groundLayer);
         DebugDrawCapsule(transform.position, transform.position + Vector3.down * checkDistance, checkRadius, isGrounded ? Color.blue : Color.red);
