@@ -43,8 +43,8 @@ public class SnappableCheck : MonoBehaviour
         Vector3 snappedDirection = new Vector3(Mathf.Cos(radians), 0, Mathf.Sin(radians));
         Debug.DrawRay(transform.position, snappedDirection, Color.red);
 
-        allowSnap = CheckRaycasts(points, snappedDirection, 25f);
-        if (allowSnap) allowSnap = CheckRaycasts(points, -snappedDirection, 25f);
+        allowSnap = CheckRaycasts(points, snappedDirection, 120);
+        if (allowSnap) allowSnap = CheckRaycasts(points, -snappedDirection, 120);
     }
 
     bool CheckRaycasts(Vector3[] points, Vector3 direction, float length)

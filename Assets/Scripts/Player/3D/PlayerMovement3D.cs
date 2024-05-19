@@ -76,7 +76,6 @@ public class PlayerMovement3D : MonoBehaviour
         else if (velocity.y < 0 || !isJumping)
         {
             currentGravityMultiplier = downwardGravityMultiplier;
-            Debug.Log("nigger");
         }
         //else if (controller.velocity.y == 0) currentGravityMultiplier = defaultGravityScale;
         
