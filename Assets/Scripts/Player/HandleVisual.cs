@@ -1,23 +1,26 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Cinemachine;
+using TrailsFX;
 using UnityEngine;
 
-public class HandleMoveEffect : MonoBehaviour
+public class HandleVisual : MonoBehaviour
 {
     [SerializeField, Multiline] private string notes;
     
     [Header("Components")]
-    [SerializeField] private SwitchDimension dimension;
+    private SwitchDimension dimension;
     private PlayerMovement3D movement3D;
     private PlayerMovement2D movement2D;
     [SerializeField] private SquashAndStretch[] snsScript;
+    [SerializeField] private TrailEffect[] trailEffect;
+
+    [SerializeField] private MeshRenderer[] renderers;
     
     private Transform legTransform;
     private Transform headTransform;
     
-    [Header("Parameters")]
+    [Header("Appearance")]
+    [SerializeField] private Color playerColor = Color.white;
+    
+    [Header("Animation")]
     [SerializeField] private Transform[] objectToUnparent;
     [Space] [SerializeField] private float headRotationSpeed = 66f;
     
@@ -36,12 +39,19 @@ public class HandleMoveEffect : MonoBehaviour
         
         legTransform = transform.Find("Leg");
         headTransform = transform.Find("Head");
-
+        renderers = new[] { legTransform.GetComponent<MeshRenderer>(), headTransform.GetComponent<MeshRenderer>() };
+        trailEffect = new[] { legTransform.GetComponent<TrailEffect>(), headTransform.GetComponent<TrailEffect>() };
+        
         if (movement3D != null) is3D = true;
         else if (movement2D != null) is3D = false;
         else Debug.LogError("The fawk did you attach this script to? Make sure parent object has either 'PlayerMovement3D' or '--2D'");
+    }
+
+    private void Start()
+    {
+        DetachObjectsFromParentAndDisable();
         
-        DetachObjectFromParent();
+        ApplyColor();
     }
 
     private void OnEnable()
@@ -55,14 +65,6 @@ public class HandleMoveEffect : MonoBehaviour
         ApplySnS();
 
         DisableDetachedObjectWhenSwitchingDimension();
-    }
-
-    void DetachObjectFromParent()
-    {
-        for (int i = 0; i < objectToUnparent.Length; i++)
-        {
-            objectToUnparent[i].SetParent(null);
-        }
     }
 
     void RotateHeadToLeg()
@@ -108,6 +110,18 @@ public class HandleMoveEffect : MonoBehaviour
         }
     }
 
+    void DetachObjectsFromParentAndDisable()
+    {
+        for (int i = 0; i < objectToUnparent.Length; i++)
+        {
+            objectToUnparent[i].SetParent(null);
+            
+            // Be sure to have this game object re-enabled somewhere later
+            if (is3D && dimension.currentState == SwitchDimension.GameState.TwoDimension) objectToUnparent[i].gameObject.SetActive(false);
+            else if (!is3D && dimension.currentState == SwitchDimension.GameState.ThreeDimension) objectToUnparent[i].gameObject.SetActive(false);
+        }
+    }
+    
     void ReenableDetachedObjectWhenSwitchingDimension()
     {
         for (int i = 0; i < objectToUnparent.Length; i++)
@@ -123,6 +137,32 @@ public class HandleMoveEffect : MonoBehaviour
             {
                 if (dimension.currentState == SwitchDimension.GameState.TwoDimension) objectToUnparent[i].gameObject.SetActive(true);
             }
+        }
+    }
+
+    void ApplyColor()
+    {
+        // To Mesh Renderer-s
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
+            renderers[i].GetPropertyBlock(propBlock, 0);
+            
+            propBlock.SetColor("_Color", playerColor);
+            
+            renderers[i].SetPropertyBlock(propBlock, 0);
+
+            Debug.Log("Nigger");
+        }
+        
+        // To TrailRenderer.cs-es
+        for (int i = 0; i < trailEffect.Length; i++)
+        {
+            trailEffect[i].trailTint = playerColor;
+
+            Color newColor = playerColor;
+            newColor.a = 0.5f;
+            trailEffect[i].color = newColor;
         }
     }
 }
