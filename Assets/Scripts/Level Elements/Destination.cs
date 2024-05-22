@@ -5,6 +5,7 @@ public class Destination : MonoBehaviour
     private SwitchDimension _switchDimension;
     private SnapDimensionToAxes _snapDimensionToAxes;
     
+    [SerializeField] private bool accessible = true;
     [SerializeField] private bool playerInRange = false;
     [SerializeField] private bool onCorrectAxes = false;
     [Space]
@@ -15,6 +16,13 @@ public class Destination : MonoBehaviour
         positiveZ, negativeZ,
     }
     [SerializeField] private axes faceDirection;
+    [Space]
+    [SerializeField] private GameObject key;
+    [SerializeField] private GameObject goalCamera;
+    [SerializeField] private GameObject goalReachedParticle;
+
+    private bool hasRun = false; // Use for GoalReached()
+    private GameObject player;
 
     private void Start()
     {
@@ -25,6 +33,7 @@ public class Destination : MonoBehaviour
     private void Update()
     {
         CheckCurrentAxes();
+        AccessibilityCheck();
         
         GoalReached();
     }
@@ -34,6 +43,7 @@ public class Destination : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             playerInRange = true;
+            player = other.gameObject;
         }
     }
 
@@ -42,14 +52,26 @@ public class Destination : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             playerInRange = false;
+            player = null;
         }
     }
 
     void GoalReached()
     {
-        if (playerInRange && onCorrectAxes)
+        if (playerInRange && onCorrectAxes && AccessibilityCheck())
         {
-            // TODO: Finish level.
+            if (Input.GetAxis("Vertical") > 0.1f && !hasRun)
+            {
+                TransitionToNextLevel playerTransitionScript = player.GetComponent<TransitionToNextLevel>();
+                if (playerTransitionScript != null)
+                {
+                    StartCoroutine(playerTransitionScript.BeginTransitionToNextScene(nextScene));
+                }
+                
+                goalCamera.SetActive(true);
+
+                hasRun = true;
+            }
         }
     }
 
@@ -74,9 +96,24 @@ public class Destination : MonoBehaviour
                     break;
             }
 
-            if (_snapDimensionToAxes.currentCamAngle == angle) onCorrectAxes = true;
+            if (Mathf.RoundToInt(_snapDimensionToAxes.currentCamAngle) == angle) onCorrectAxes = true;
             else onCorrectAxes = false;
         }
         else onCorrectAxes = false;
+    }
+
+    bool AccessibilityCheck()
+    {
+        foreach (Transform child in transform)
+        {
+            if (child.name == "Lock")
+            {
+                accessible = false;
+                return false;
+            }
+        }
+        
+        accessible = true;
+        return true;
     }
 }

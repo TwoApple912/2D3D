@@ -11,14 +11,17 @@ public class HandleVisual : MonoBehaviour
     private PlayerMovement2D movement2D;
     [SerializeField] private SquashAndStretch[] snsScript;
     [SerializeField] private TrailEffect[] trailEffect;
-
+    
     [SerializeField] private MeshRenderer[] renderers;
+    [SerializeField] private MeshRenderer[] eyeRenderers;
     
     private Transform legTransform;
     private Transform headTransform;
     
     [Header("Appearance")]
     [SerializeField] private Color playerColor = Color.white;
+    [SerializeField] private Color eyesColor;
+    [SerializeField] private bool useDarkenedInvertedColorForEyes;
     
     [Header("Animation")]
     [SerializeField] private Transform[] objectToUnparent;
@@ -40,11 +43,14 @@ public class HandleVisual : MonoBehaviour
         legTransform = transform.Find("Leg");
         headTransform = transform.Find("Head");
         renderers = new[] { legTransform.GetComponent<MeshRenderer>(), headTransform.GetComponent<MeshRenderer>() };
+        eyeRenderers = new[] { transform.Find("LEye").GetComponent<MeshRenderer>(), transform.Find("REye").GetComponent<MeshRenderer>() };
         trailEffect = new[] { legTransform.GetComponent<TrailEffect>(), headTransform.GetComponent<TrailEffect>() };
         
         if (movement3D != null) is3D = true;
         else if (movement2D != null) is3D = false;
         else Debug.LogError("The fawk did you attach this script to? Make sure parent object has either 'PlayerMovement3D' or '--2D'");
+        
+        if (useDarkenedInvertedColorForEyes) eyesColor = new Color((1 - playerColor.r) / 12, (1 - playerColor.g) / 12, (1 - playerColor.b) / 12, playerColor.a);
     }
 
     private void Start()
@@ -131,7 +137,6 @@ public class HandleVisual : MonoBehaviour
             if (is3D)
             {
                 if (dimension.currentState == SwitchDimension.GameState.ThreeDimension) objectToUnparent[i].gameObject.SetActive(true);
-                Debug.Log("Black");
             }
             else if (!is3D)
             {
@@ -151,8 +156,6 @@ public class HandleVisual : MonoBehaviour
             propBlock.SetColor("_Color", playerColor);
             
             renderers[i].SetPropertyBlock(propBlock, 0);
-
-            Debug.Log("Nigger");
         }
         
         // To TrailRenderer.cs-es
@@ -163,6 +166,17 @@ public class HandleVisual : MonoBehaviour
             Color newColor = playerColor;
             newColor.a = 0.5f;
             trailEffect[i].color = newColor;
+        }
+        
+        // To eyes' MeshRenderer-s
+        for (int i = 0; i < eyeRenderers.Length; i++)
+        {
+            MaterialPropertyBlock propBlock = new MaterialPropertyBlock();
+            eyeRenderers[i].GetPropertyBlock(propBlock, 0);
+            
+            propBlock.SetColor("_Color", eyesColor);
+            
+            eyeRenderers[i].SetPropertyBlock(propBlock, 0);
         }
     }
 }

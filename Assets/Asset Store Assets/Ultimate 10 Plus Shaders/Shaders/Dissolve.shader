@@ -39,7 +39,8 @@ Shader "Ultimate 10+ Shaders/Dissolve"
 
         _Cutoff ("Cut off", Range(0, 1)) = 0.25
         _EdgeWidth ("Edge Width", Range(0, 1)) = 0.05
-        [HDR] _EdgeColor ("Edge Color", Color) = (1,1,1,1)
+        _EdgeColor ("Edge Color", Color) = (1,1,1,1)
+        //[HDR] _EdgeColor ("Edge Color", Color) = (1,1,1,1)
         
         [Enum(UnityEngine.Rendering.CullMode)] _Cull ("Cull", Float) = 2
     }
