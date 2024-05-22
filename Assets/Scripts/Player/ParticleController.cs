@@ -5,6 +5,7 @@ using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
+using FMODUnity;
 
 public class ParticleController : MonoBehaviour
 {
@@ -25,7 +26,9 @@ public class ParticleController : MonoBehaviour
     private float elapsedTime; // Used for PlayWalkParticle()
     private bool hasPlayed = false; // Used for PlayLandParticle()
     private float previousYVelocity;
-
+    
+    [Header("Audio")]
+    [SerializeField] private EventReference landEvent;
     private void OnEnable()
     {
         movement2D = GetComponent<PlayerMovement2D>();
@@ -79,12 +82,14 @@ public class ParticleController : MonoBehaviour
             elapsedTime = 0;
         }
     }
+    
 
     void PlayLandParticle()
     {
         if (IsGround() && !hasPlayed)
         {
             landParticle.Emit(12);
+            RuntimeManager.PlayOneShot(landEvent);
             hasPlayed = true;
         }
         else if (!IsGround()) hasPlayed = false;

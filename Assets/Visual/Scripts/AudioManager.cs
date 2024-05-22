@@ -12,30 +12,26 @@ public class AudioManager : MonoBehaviour
     private EventInstance eventInstance2;
     private bool isEvent1Muted = true; 
     private bool isAllMuted = false; 
+    public SnappableCheck snapable; // Reference to SnappableCheck
 
     void Start()
     {
-        
         eventInstance1 = RuntimeManager.CreateInstance(eventPath1);
         eventInstance2 = RuntimeManager.CreateInstance(eventPath2);
 
-        
         eventInstance1.start();
         eventInstance2.start();
 
-        
         eventInstance1.setVolume(0f);
     }
 
     void Update()
     {
-        
-        if (Input.GetButtonDown("Switch Dimension") && !isAllMuted)
+        if (Input.GetButtonDown("Switch Dimension") && !isAllMuted && snapable.allowSnap) // Check if snapping is allowed
         {
             ToggleMute();
         }
 
-        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ToggleMuteAll();
@@ -46,19 +42,16 @@ public class AudioManager : MonoBehaviour
     {
         if (isEvent1Muted)
         {
-            
             eventInstance1.setVolume(1f); 
             eventInstance2.setVolume(0f);
         }
         else
         {
-            
             eventInstance1.setVolume(0f);
             eventInstance2.setVolume(1f); 
         }
         isEvent1Muted = !isEvent1Muted;
 
-        
         PlaySnapTo2DSound();
     }
 
@@ -66,7 +59,6 @@ public class AudioManager : MonoBehaviour
     {
         if (isAllMuted)
         {
-            
             if (isEvent1Muted)
             {
                 eventInstance2.setVolume(1f); 
@@ -78,7 +70,6 @@ public class AudioManager : MonoBehaviour
         }
         else
         {
-            
             eventInstance1.setVolume(0f);
             eventInstance2.setVolume(0f);
         }
@@ -92,7 +83,6 @@ public class AudioManager : MonoBehaviour
 
     void OnDestroy()
     {
-        
         eventInstance1.release();
         eventInstance2.release();
     }

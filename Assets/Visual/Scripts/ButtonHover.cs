@@ -7,7 +7,8 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public Animator animator;
     public string animationBool;
     public string hoverFmodEventPath;
-    public string ownAnimatorBool; // Name of the bool parameter in the GameObject's Animator
+    public string ownAnimatorBool; 
+    
 
     public Animator ownAnimator;
 
