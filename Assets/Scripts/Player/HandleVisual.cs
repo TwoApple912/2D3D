@@ -9,6 +9,7 @@ public class HandleVisual : MonoBehaviour
     private SwitchDimension dimension;
     private PlayerMovement3D movement3D;
     private PlayerMovement2D movement2D;
+    private SnappableCheck _snappableCheck;
     [SerializeField] private SquashAndStretch[] snsScript;
     [SerializeField] private TrailEffect[] trailEffect;
     
@@ -38,6 +39,7 @@ public class HandleVisual : MonoBehaviour
         
         movement3D = GetComponentInParent<PlayerMovement3D>();
         movement2D = GetComponentInParent<PlayerMovement2D>();
+        _snappableCheck = GameObject.Find("Player3D").GetComponent<SnappableCheck>();
         //snsScript = GetComponent<SquashAndStretch>();
         
         legTransform = transform.Find("Leg");
@@ -104,7 +106,7 @@ public class HandleVisual : MonoBehaviour
         {
             /* The reason why the if-s compare with ThreeDimension and TwoDimension respectively is because it check for
              currentState before SwitchDimension.cs' LateUpdate() takes place to change the currentState */
-            if (is3D && Input.GetButtonDown("Switch Dimension"))
+            if (is3D && Input.GetButtonDown("Switch Dimension") && _snappableCheck.allowSnap)
             {
                 if (dimension.currentState == SwitchDimension.GameState.ThreeDimension) objectToUnparent[i].gameObject.SetActive(false);
                 Debug.Log("Nega");
