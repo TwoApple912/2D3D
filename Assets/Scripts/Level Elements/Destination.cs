@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class Destination : MonoBehaviour
 {
-    private SwitchDimension _switchDimension;
+    private SwitchDimension dimension;
     private SnapDimensionToAxes _snapDimensionToAxes;
     
     [SerializeField] private bool accessible = true;
     [SerializeField] private bool playerInRange = false;
+
+    [SerializeField] private bool Only2D = false;
     [SerializeField] private bool onCorrectAxes = false;
     [Space]
     public string nextScene;
@@ -26,7 +28,7 @@ public class Destination : MonoBehaviour
 
     private void Start()
     {
-        _switchDimension = GameObject.Find("Game Manager").GetComponent<SwitchDimension>();
+        dimension = GameObject.Find("Game Manager").GetComponent<SwitchDimension>();
         _snapDimensionToAxes = GameObject.Find("2D Dimension").GetComponent<SnapDimensionToAxes>();
     }
 
@@ -77,7 +79,11 @@ public class Destination : MonoBehaviour
 
     void CheckCurrentAxes()
     {
-        if (_switchDimension.currentState == SwitchDimension.GameState.TwoDimension)
+        if (!Only2D && dimension.currentState == SwitchDimension.GameState.ThreeDimension)
+        {
+            onCorrectAxes = true;
+        }
+        else if (dimension.currentState == SwitchDimension.GameState.TwoDimension)
         {
             float angle = 0f;
             switch (faceDirection)
@@ -99,7 +105,6 @@ public class Destination : MonoBehaviour
             if (Mathf.RoundToInt(_snapDimensionToAxes.currentCamAngle) == angle) onCorrectAxes = true;
             else onCorrectAxes = false;
         }
-        else onCorrectAxes = false;
     }
 
     bool AccessibilityCheck()

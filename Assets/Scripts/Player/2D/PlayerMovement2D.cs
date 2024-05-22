@@ -61,7 +61,7 @@ public class PlayerMovement2D : MonoBehaviour
     {
         Jump();
         
-        //GroundCheck();
+        GroundCheck();
         CalculateMoveVelocity();
         
         LockLocalRotation();
@@ -78,21 +78,20 @@ public class PlayerMovement2D : MonoBehaviour
 
     private void OnCollisionExit(Collision other)
     {
-        isGrounded = false;
-        //rb.useGravity = true;
+        //isGrounded = false;
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        GroundCheck(other);
+        //NewGroundCheck(other);
     }
 
     private void OnCollisionStay(Collision other)
     {
-        GroundCheck(other);
+        //NewGroundCheck(other);
     }
 
-    void GroundCheck(Collision other)
+    void NewGroundCheck(Collision other)
     {
         for (int i = 0; i < other.contactCount; i++)
         {
@@ -101,8 +100,11 @@ public class PlayerMovement2D : MonoBehaviour
 
             //if (isGrounded) rb.useGravity = false;
         }
-        
-        /*Vector3 center = transform.position + capsuleCollider.center;
+    }
+
+    void GroundCheck()
+    {
+        Vector3 center = transform.position + capsuleCollider.center;
         Vector3 start = center + transform.forward * (capsuleCollider.height / 2 - capsuleCollider.radius);
         Vector3 end = center - transform.forward * (capsuleCollider.height / 2 - capsuleCollider.radius);
         start -= new Vector3(0, capsuleCollider.radius + groundCheckOffset, 0);
@@ -119,7 +121,7 @@ public class PlayerMovement2D : MonoBehaviour
         else
         {
             isGrounded = false;
-        }*/
+        }
     }
 
     void ApplyGravity()

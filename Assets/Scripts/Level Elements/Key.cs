@@ -11,6 +11,7 @@ public class Key : MonoBehaviour
     private KeyAndLockMaterialPropertyBlock materialScript;
     
     private Destination destination;
+    private FloatingObject floatingScript; // Checkpoint
 
     [SerializeField] Lock associatedLock;
     [Space]
