@@ -42,7 +42,7 @@ public class Pixelate : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L) && !isEscapeActive)
+        if (Input.GetButtonDown("Switch Dimension") && !isEscapeActive)
         {
             if (pixelateCoroutine != null)
             {

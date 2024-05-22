@@ -9,6 +9,7 @@ public class CartridgeClick : MonoBehaviour, IPointerClickHandler, IPointerEnter
     private string animationBool = "inserted";
     private string isHoverBool = "isHover";
     private string fmodEventPath = "event:/Insert Cartridge";
+    public string sceneToLoad;
 
     private Animator animator;
     private bool fmodEventPlayed = false;
@@ -71,6 +72,6 @@ public class CartridgeClick : MonoBehaviour, IPointerClickHandler, IPointerEnter
 
     public void loadLevel()
     {
-        SceneManager.LoadScene("Visual/Scenes/Level 2");
+        SceneManager.LoadScene(sceneToLoad);
     }
 }
