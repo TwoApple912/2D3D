@@ -25,9 +25,15 @@ public class UIPausedAnim : MonoBehaviour
         // Check if the 'Escape' key is pressed
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            isPaused = !isPaused; // Toggle the pause state
-            SetPauseState(isPaused);
+            TriggerPauseState();
         }
+    }
+
+    // Method to trigger the pause state externally
+    public void TriggerPauseState()
+    {
+        isPaused = !isPaused; // Toggle the pause state
+        SetPauseState(isPaused);
     }
 
     // For testing in the Inspector

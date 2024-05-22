@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0541e0979f7273943ae0cd65bcb28c03, type: 3}
+  m_Name: ShaderResources
+  m_EditorClassIdentifier: 
+  shaders:
+  - {fileID: 4800000, guid: e39a04154cf33b848b0994ef6055a463, type: 3}
+  - {fileID: 4800000, guid: 273e181f64af8d749b0a78383bf8564b, type: 3}
+  - {fileID: 4800000, guid: afa8e6272f0f65543b921782b6c343ff, type: 3}
+  - {fileID: 4800000, guid: 774a549d88b5d4841ae51a3778900f30, type: 3}
+  - {fileID: 4800000, guid: 09b5ed7de4346b04f9fe1e12a662f89f, type: 3}
+  - {fileID: 4800000, guid: 2f850c2d893b2fc4593e360ba3cc7aa6, type: 3}
+  - {fileID: 4800000, guid: cd415f69e08078e4b8139b1095e398b9, type: 3}
+  - {fileID: 4800000, guid: 1fb344b09dfb95941a7871c2852d8554, type: 3}
+  - {fileID: 4800000, guid: ee360e36b47739a4dad8db9c3480a7cb, type: 3}
+  - {fileID: 4800000, guid: 8d549bedb57adf34a8421b9463a64d0c, type: 3}
+  - {fileID: 4800000, guid: cf92d459b4590784cb317662637e56fb, type: 3}
+  - {fileID: 4800000, guid: 0fad336d9e7a1f34197f9cb0f83a7319, type: 3}
+  - {fileID: 4800000, guid: 93c05b1aa7e209541b293632e4ac486b, type: 3}
+  - {fileID: 4800000, guid: 6521b29da9ae5714d99f125442c28391, type: 3}
+  - {fileID: 4800000, guid: 024990dfc077c23459d4b207a65e5d2a, type: 3}
+  - {fileID: 4800000, guid: ad340ffc132fd374cabe686a629a5d60, type: 3}
+  - {fileID: 4800000, guid: 4e78aab694b3baa45a7e05737fafb90b, type: 3}
+  - {fileID: 4800000, guid: eed00e0cc0b8ebe4e9a2fdb52081ddeb, type: 3}
+  - {fileID: 4800000, guid: 66592d89bfdb70647bdd6d1ba8a7796f, type: 3}
+  - {fileID: 4800000, guid: db2cd62c1b25b1c448eabdfbed57fdc9, type: 3}
+  - {fileID: 4800000, guid: 144459452c5ac954b9db817fa8e45a3d, type: 3}
+  - {fileID: 4800000, guid: 489431a5a3c3b9b47adb23a58cc24740, type: 3}
+  - {fileID: 4800000, guid: 69e73a298eb410047b79f8f5e9c49656, type: 3}
+  - {fileID: 4800000, guid: 87180f283f237b64383adc08d78addb5, type: 3}
+  - {fileID: 4800000, guid: b5ef6625d627b6947825bbc155bf34e9, type: 3}
+  - {fileID: 4800000, guid: 0263d012643c67749bf78d79f431c4ec, type: 3}
+  additionalPaths: []
