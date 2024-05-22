@@ -1,0 +1,3 @@
+When importing, import only the 2D Dimension and not its content.
+
+Don't import 2D Camera and Player2D, their variable properties aren't right.

@@ -40,9 +40,9 @@ public class SwitchDimension : MonoBehaviour
         SwitchState(currentState);
     }
 
-    void Update()
+    void LateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.L) && _snappableCheck.allowSnap)
+        if (Input.GetButtonDown("Switch Dimension") && _snappableCheck.allowSnap)
         {
             SwitchState(currentState == GameState.ThreeDimension ? GameState.TwoDimension : GameState.ThreeDimension);
             _snapDimensionToAxes.SnapRotation();

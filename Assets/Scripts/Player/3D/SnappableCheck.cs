@@ -1,18 +1,21 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class SnappableCheck : MonoBehaviour
 {
     private SnapDimensionToAxes _snapDimensionToAxes;
-
     private Collider collider;
 
     public bool allowSnap = true;
+    [Space]
+    [SerializeField] private LayerMask checkLayer;
 
     private void Start()
     {
         _snapDimensionToAxes = GameObject.Find("2D Dimension").GetComponent<SnapDimensionToAxes>();
-
         collider = GetComponent<Collider>();
+
+        checkLayer = LayerMask.GetMask("Default", "Level Element");
     }
 
     private void Update()
@@ -40,8 +43,8 @@ public class SnappableCheck : MonoBehaviour
         Vector3 snappedDirection = new Vector3(Mathf.Cos(radians), 0, Mathf.Sin(radians));
         Debug.DrawRay(transform.position, snappedDirection, Color.red);
 
-        allowSnap = CheckRaycasts(points, snappedDirection, 25f);
-        if (allowSnap) allowSnap = CheckRaycasts(points, -snappedDirection, 25f);
+        allowSnap = CheckRaycasts(points, snappedDirection, 120);
+        if (allowSnap) allowSnap = CheckRaycasts(points, -snappedDirection, 120);
     }
 
     bool CheckRaycasts(Vector3[] points, Vector3 direction, float length)
@@ -51,7 +54,7 @@ public class SnappableCheck : MonoBehaviour
         foreach (Vector3 point in points)
         {
             Debug.DrawRay(point, direction * length, Color.yellow);
-            if (Physics.Raycast(point, direction, length, 1 << LayerMask.NameToLayer("Level Element")))
+            if (Physics.Raycast(point, direction, length, checkLayer))
             {
                 hitCount++;
             }
