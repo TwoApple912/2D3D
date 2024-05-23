@@ -10,7 +10,7 @@ public class CartridgeClick : MonoBehaviour, IPointerClickHandler, IPointerEnter
     private string isHoverBool = "isHover";
     private string fmodEventPath = "event:/Insert Cartridge";
     public string sceneToLoad; // This will be set to the specific level
-    public string transitionSceneName = "TransitionScene"; // Name of the transition scene
+    public string transitionSceneName = "Transition LS"; // Name of the transition scene
 
     private Animator animator;
     private bool fmodEventPlayed = false;

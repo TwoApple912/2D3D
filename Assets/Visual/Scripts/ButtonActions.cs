@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using FMODUnity;
+using UnityEngine.SceneManagement;
 
 public class ButtonActions : MonoBehaviour, IPointerEnterHandler
 {
@@ -55,5 +56,11 @@ public class ButtonActions : MonoBehaviour, IPointerEnterHandler
         {
             RuntimeManager.PlayOneShot(hoverFmodEventPath); ;
         }
+    }
+
+    public void restart()
+    {
+        string sceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(sceneName);
     }
 }
