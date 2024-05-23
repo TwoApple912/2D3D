@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PlayerMovement3D : MonoBehaviour
 {
+    private AllowInput input;
+    
     private CharacterController controller;
 
     [SerializeField] private CinemachineVirtualCamera camera3D;
@@ -37,6 +39,8 @@ public class PlayerMovement3D : MonoBehaviour
     
     void Start()
     {
+        input = GameObject.Find("Game Manager").GetComponent<AllowInput>();
+        
         controller = GetComponent<CharacterController>();
 
         camera3D = GameObject.Find("3D Camera").GetComponent<CinemachineVirtualCamera>();
@@ -44,8 +48,11 @@ public class PlayerMovement3D : MonoBehaviour
 
     void Update()
     {
-        Move();
-        Jump();
+        if (input.allowInput)
+        {
+            Move();
+            Jump();
+        }
 
         CalculateMoveVelocity();
         GroundCheck();

@@ -4,6 +4,8 @@ using Vector3 = UnityEngine.Vector3;
 
 public class PlayerMovement2D : MonoBehaviour
 {
+    private AllowInput input;
+    
     private Rigidbody rb;
     private CapsuleCollider capsuleCollider;
 
@@ -44,8 +46,10 @@ public class PlayerMovement2D : MonoBehaviour
     [SerializeField] private float upwardGravityMultiplier = 1.7f;
     private float defaultGravityScale = 1f;
 
-    void Start()
+    void Awake()
     {
+        input = GameObject.Find("Game Manager").GetComponent<AllowInput>();
+        
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         
@@ -59,7 +63,7 @@ public class PlayerMovement2D : MonoBehaviour
 
     void Update()
     {
-        Jump();
+        if (input.allowInput) Jump();
         
         GroundCheck();
         CalculateMoveVelocity();
@@ -69,7 +73,8 @@ public class PlayerMovement2D : MonoBehaviour
 
     void FixedUpdate()
     {
-        Move();
+        if (input.allowInput) Move();
+        else rb.velocity = new Vector3(0, rb.velocity.y, 0);
         
         ApplyGravity();
         

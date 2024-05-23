@@ -1,15 +1,19 @@
+using System;
 using UnityEngine;
 
 public class Destination : MonoBehaviour
 {
     private SwitchDimension dimension;
     private SnapDimensionToAxes _snapDimensionToAxes;
+    private AllowInput input;
     
     [SerializeField] private bool accessible = true;
     [SerializeField] private bool playerInRange = false;
 
     [SerializeField] private bool Only2D = false;
     [SerializeField] private bool onCorrectAxes = false;
+    [Space]
+    [SerializeField] private float requiredStandDuration = 0.75f;
     [Space]
     public string nextScene;
     private enum axes
@@ -19,24 +23,28 @@ public class Destination : MonoBehaviour
     }
     [SerializeField] private axes faceDirection;
     [Space]
-    [SerializeField] private GameObject key;
     [SerializeField] private GameObject goalCamera;
     [SerializeField] private GameObject goalReachedParticle;
 
     private bool hasRun = false; // Use for GoalReached()
     private GameObject player;
+    private float standTime = 0f;
 
-    private void Start()
+    private void Awake()
     {
         dimension = GameObject.Find("Game Manager").GetComponent<SwitchDimension>();
         _snapDimensionToAxes = GameObject.Find("2D Dimension").GetComponent<SnapDimensionToAxes>();
+        input = GameObject.Find("Game Manager").GetComponent<AllowInput>();
     }
 
     private void Update()
     {
         CheckCurrentAxes();
         AccessibilityCheck();
-        
+    }
+
+    private void LateUpdate()
+    {
         GoalReached();
     }
 
@@ -62,19 +70,24 @@ public class Destination : MonoBehaviour
     {
         if (playerInRange && onCorrectAxes && AccessibilityCheck())
         {
-            if (Input.GetAxis("Vertical") > 0.1f && !hasRun)
+            standTime += Time.deltaTime;
+
+            if (standTime > requiredStandDuration && !hasRun)
             {
                 TransitionToNextLevel playerTransitionScript = player.GetComponent<TransitionToNextLevel>();
                 if (playerTransitionScript != null)
                 {
+                    input.allowInput = false;
+
                     StartCoroutine(playerTransitionScript.BeginTransitionToNextScene(nextScene));
                 }
-                
+
                 goalCamera.SetActive(true);
 
                 hasRun = true;
             }
         }
+        else standTime = 0f;
     }
 
     void CheckCurrentAxes()

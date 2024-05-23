@@ -5,6 +5,8 @@ using UnityEngine;
 public class SwitchDimension : MonoBehaviour
 {
     private SyncPlayerLocation _syncPlayerLocation;
+    private AllowInput input;
+    
     private SnapDimensionToAxes _snapDimensionToAxes;
     private SnappableCheck _snappableCheck;
     
@@ -34,6 +36,8 @@ public class SwitchDimension : MonoBehaviour
     void Start()
     {
         _syncPlayerLocation = GetComponent<SyncPlayerLocation>();
+        input = GetComponent<AllowInput>();
+        
         _snapDimensionToAxes = GameObject.Find("2D Dimension").GetComponent<SnapDimensionToAxes>();
         _snappableCheck = GameObject.Find("Player3D").GetComponent<SnappableCheck>();
         
@@ -42,7 +46,7 @@ public class SwitchDimension : MonoBehaviour
 
     void LateUpdate()
     {
-        if (Input.GetButtonDown("Switch Dimension") && _snappableCheck.allowSnap)
+        if (Input.GetButtonDown("Switch Dimension") && _snappableCheck.allowSnap && input.allowInput)
         {
             SwitchState(currentState == GameState.ThreeDimension ? GameState.TwoDimension : GameState.ThreeDimension);
             _snapDimensionToAxes.SnapRotation();

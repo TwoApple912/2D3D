@@ -108,7 +108,7 @@ public class ParticleController : MonoBehaviour
 
     int LandParticleAmount()
     {
-        const int maxParticles = 12;
+        const int maxParticles = 6;
         const int minParticles = 0;
         const float maxVelocityY = -20f;
         

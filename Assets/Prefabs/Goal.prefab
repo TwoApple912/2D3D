@@ -209,7 +209,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2762
+  m_VersionIndex: 2765
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -298,10 +298,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 286236597fe618048b64c84f9813fe73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  accessible: 0
   playerInRange: 0
+  Only2D: 0
   onCorrectAxes: 0
   nextScene: 
   faceDirection: 3
+  key: {fileID: 0}
+  goalCamera: {fileID: 0}
+  goalReachedParticle: {fileID: 0}
 --- !u!33 &7350988697112963610
 MeshFilter:
   m_ObjectHideFlags: 0

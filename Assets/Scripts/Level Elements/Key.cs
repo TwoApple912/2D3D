@@ -9,9 +9,9 @@ public class Key : MonoBehaviour
     private Renderer renderer;
     private ParticleSystem particleSystem;
     private KeyAndLockMaterialPropertyBlock materialScript;
+    private FloatingObject floatingScript;
     
     private Destination destination;
-    private FloatingObject floatingScript; // Checkpoint
 
     [SerializeField] Lock associatedLock;
     [Space]
@@ -25,7 +25,8 @@ public class Key : MonoBehaviour
         renderer = GetComponent<Renderer>();
         particleSystem = GetComponentInChildren<ParticleSystem>();
         materialScript = GetComponent<KeyAndLockMaterialPropertyBlock>();
-        
+        floatingScript = GetComponent<FloatingObject>();
+            
         destination = GameObject.Find("Goal").GetComponent<Destination>();
     }
 
@@ -43,7 +44,7 @@ public class Key : MonoBehaviour
 
     IEnumerator KeyObtainedVisual()
     {
-        
+        floatingScript.enabled = false;
         
         particleSystem.Play();
 
