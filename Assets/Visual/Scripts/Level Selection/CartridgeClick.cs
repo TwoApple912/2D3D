@@ -9,6 +9,8 @@ public class CartridgeClick : MonoBehaviour, IPointerClickHandler, IPointerEnter
     private string animationBool = "inserted";
     private string isHoverBool = "isHover";
     private string fmodEventPath = "event:/Insert Cartridge";
+    public string sceneToLoad; // This will be set to the specific level
+    public string transitionSceneName = "TransitionScene"; // Name of the transition scene
 
     private Animator animator;
     private bool fmodEventPlayed = false;
@@ -21,7 +23,6 @@ public class CartridgeClick : MonoBehaviour, IPointerClickHandler, IPointerEnter
             Debug.LogError("Animator component not found on the GameObject.");
         }
 
-        
         BoxCollider collider = GetComponent<BoxCollider>();
         if (collider != null)
         {
@@ -29,7 +30,6 @@ public class CartridgeClick : MonoBehaviour, IPointerClickHandler, IPointerEnter
         }
     }
 
-    
     public void PlayFmodEvent()
     {
         if (!string.IsNullOrEmpty(fmodEventPath) && !fmodEventPlayed)
@@ -39,19 +39,15 @@ public class CartridgeClick : MonoBehaviour, IPointerClickHandler, IPointerEnter
         }
     }
 
-    
     public void OnPointerClick(PointerEventData eventData)
     {
         if (animator != null && !string.IsNullOrEmpty(animationBool))
         {
             animator.SetBool(animationBool, true);
         }
-
-        
         PlayFmodEvent();
     }
 
-    
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (animator != null && !string.IsNullOrEmpty(isHoverBool))
@@ -60,7 +56,6 @@ public class CartridgeClick : MonoBehaviour, IPointerClickHandler, IPointerEnter
         }
     }
 
-    
     public void OnPointerExit(PointerEventData eventData)
     {
         if (animator != null && !string.IsNullOrEmpty(isHoverBool))
@@ -69,8 +64,9 @@ public class CartridgeClick : MonoBehaviour, IPointerClickHandler, IPointerEnter
         }
     }
 
-    public void loadLevel()
+    private void LoadTransitionScene()
     {
-        SceneManager.LoadScene("Visual/Scenes/Level 2");
+        SceneData.NextScene = sceneToLoad;
+        SceneManager.LoadScene(transitionSceneName);
     }
 }

@@ -25,7 +25,7 @@ public class AdjustChromaticAberration : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetButtonDown("Switch Dimension"))
         {
             if (snapable.allowSnap)
             {
