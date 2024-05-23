@@ -13,21 +13,6 @@ public class AdjustChromaticAberration : MonoBehaviour
 
     void Start()
     {
-        // Automatically find the SnappableCheck component on the "Player3D" GameObject
-        GameObject player3D = GameObject.Find("Player3D");
-        if (player3D != null)
-        {
-            snapable = player3D.GetComponent<SnappableCheck>();
-            if (snapable == null)
-            {
-                Debug.LogError("SnappableCheck component not found on Player3D GameObject.");
-            }
-        }
-        else
-        {
-            Debug.LogError("Player3D GameObject not found.");
-        }
-
         if (postProcessVolume == null)
         {
            return;
@@ -42,7 +27,7 @@ public class AdjustChromaticAberration : MonoBehaviour
     {
         if (Input.GetButtonDown("Switch Dimension"))
         {
-            if (snapable != null && snapable.allowSnap)
+            if (snapable.allowSnap)
             {
                 if (isNegative)
                 {
@@ -55,11 +40,13 @@ public class AdjustChromaticAberration : MonoBehaviour
 
                 isNegative = !isNegative;
             }
+            
         }
     }
 
     IEnumerator AdjustChromaticAberrationCoroutine(float startValue, float endValue)
     {
+  
         yield return StartCoroutine(ChangeIntensity(startValue, endValue, transitionDuration));
         yield return StartCoroutine(ChangeIntensity(endValue, startValue, returnDuration));
     }
@@ -77,4 +64,6 @@ public class AdjustChromaticAberration : MonoBehaviour
 
         chromaticAberration.intensity.value = endValue;
     }
+
+
 }

@@ -16,21 +16,6 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        // Automatically find the SnappableCheck component on the "Player3D" GameObject
-        GameObject player3D = GameObject.Find("Player3D");
-        if (player3D != null)
-        {
-            snapable = player3D.GetComponent<SnappableCheck>();
-            if (snapable == null)
-            {
-                Debug.LogError("SnappableCheck component not found on Player3D GameObject.");
-            }
-        }
-        else
-        {
-            Debug.LogError("Player3D GameObject not found.");
-        }
-
         eventInstance1 = RuntimeManager.CreateInstance(eventPath1);
         eventInstance2 = RuntimeManager.CreateInstance(eventPath2);
 
@@ -42,7 +27,7 @@ public class AudioManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Switch Dimension") && !isAllMuted && snapable != null && snapable.allowSnap) // Check if snapping is allowed
+        if (Input.GetButtonDown("Switch Dimension") && !isAllMuted && snapable.allowSnap) // Check if snapping is allowed
         {
             ToggleMute();
         }
