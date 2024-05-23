@@ -40,6 +40,7 @@ Transform:
   - {fileID: 991380936465993872}
   - {fileID: 4340736951056617280}
   - {fileID: 7438857192037080490}
+  - {fileID: 127055478415584285}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5930120879572168132
@@ -190,6 +191,13 @@ MonoBehaviour:
   walkParticle: {fileID: 4342347444050143786}
   landParticle: {fileID: 129913113675003594}
   walkParticleCooldown: 0.1
+  landEvent:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!114 &8353723830896770692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5078,6 +5086,102 @@ Transform:
   m_Children: []
   m_Father: {fileID: 991380936465993872}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8549698847379841656
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 127055478415584285}
+  - component: {fileID: 1355890451834142894}
+  - component: {fileID: 401055933029451796}
+  - component: {fileID: 2142173781451541213}
+  m_Layer: 0
+  m_Name: IsTriggerCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &127055478415584285
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8549698847379841656}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 227198896758450027}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1355890451834142894
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8549698847379841656}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.6
+  m_Height: 2.2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &401055933029451796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8549698847379841656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95b5b4fcd22fcc04fa0652acd1ce159f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!54 &2142173781451541213
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8549698847379841656}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8660256518456800673
 GameObject:
   m_ObjectHideFlags: 0
@@ -10079,7 +10183,7 @@ MonoBehaviour:
   trailEffect: []
   renderers: []
   eyeRenderers: []
-  playerColor: {r: 0.7372549, g: 0.05490196, b: 0.90588236, a: 1}
+  playerColor: {r: 0.0627451, g: 0.9843137, b: 0.9529412, a: 1}
   eyesColor: {r: 0, g: 0, b: 0, a: 1}
   useDarkenedInvertedColorForEyes: 0
   objectToUnparent:
@@ -10452,7 +10556,7 @@ MonoBehaviour:
   PositionDrive:
     Spring: 1500
     Damper: 50
-    ForceLimit: Infinity
+    ForceLimit: 1000
     EnableAxes:
       X: 1
       Y: 1

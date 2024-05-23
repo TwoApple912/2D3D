@@ -109,7 +109,6 @@ public class HandleVisual : MonoBehaviour
             if (is3D && Input.GetButtonDown("Switch Dimension") && _snappableCheck.allowSnap)
             {
                 if (dimension.currentState == SwitchDimension.GameState.ThreeDimension) objectToUnparent[i].gameObject.SetActive(false);
-                Debug.Log("Nega");
             }
             else if (!is3D && Input.GetButtonDown("Switch Dimension"))
             {

@@ -86,7 +86,7 @@ Shader "MK/Toon/Built-in/Standard/Simple + Outline"
 		[HDR] _DissolveBorderColor ("", Color) = (1, 1, 1, 1)
 		[Enum(MK.Toon.Artistic)] _Artistic ("", int) = 0
 		[Enum(MK.Toon.ArtisticProjection)] _ArtisticProjection ("", int) = 0
-		_ArtisticFrequency ("", Range(1, 10)) = 1
+		_ArtisticFrequency ("", Range(1, 50)) = 1
 		_DrawnMapScale ("", Float) = 1
 		_DrawnMap ("", 2D) = "white" {}
 		_DrawnClampMin ("", Range(0.0, 1.0)) = 0.0

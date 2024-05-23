@@ -20,15 +20,18 @@ public class ParticleController : MonoBehaviour
     
     [Header("Parameters")]
     [SerializeField] private float walkParticleCooldown = 0.1f;
-
+    [SerializeField] private float landParticleCooldown = 0.5f;
+    
+    [Header("Audio")]
+    private string landEvent = "Event:/Land";
+    
     private Vector3 movementDirection;
     private Vector3 lastPosition;
     private float elapsedTime; // Used for PlayWalkParticle()
     private bool hasPlayed = false; // Used for PlayLandParticle()
     private float previousYVelocity;
+    private float landInterval = 0;
     
-    [Header("Audio")]
-    [SerializeField] private EventReference landEvent;
     private void OnEnable()
     {
         movement2D = GetComponent<PlayerMovement2D>();
@@ -86,11 +89,15 @@ public class ParticleController : MonoBehaviour
 
     void PlayLandParticle()
     {
-        if (IsGround() && !hasPlayed)
+        landInterval += Time.deltaTime;
+        
+        if (IsGround() && !hasPlayed && landInterval > landParticleCooldown)
         {
             landParticle.Emit(12);
             RuntimeManager.PlayOneShot(landEvent);
+            
             hasPlayed = true;
+            landInterval = 0f;
         }
         else if (!IsGround()) hasPlayed = false;
     }
