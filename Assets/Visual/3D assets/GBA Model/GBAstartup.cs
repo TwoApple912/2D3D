@@ -16,5 +16,6 @@ public class GBAstartup : MonoBehaviour
     {
         yield return new WaitForSeconds(delayTime);
         SceneManager.LoadScene("Start Menu");
+        this.gameObject.SetActive(false);
     }
 }
