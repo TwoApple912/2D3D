@@ -12,10 +12,20 @@ public class AudioManager : MonoBehaviour
     private EventInstance eventInstance2;
     private bool isEvent1Muted = true; 
     private bool isAllMuted = false; 
-    public SnappableCheck snapable; // Reference to SnappableCheck
+    public SnappableCheck snappableCheck;
 
+    
+    void Awake()
+    {
+        GameObject player3D = GameObject.Find("Player3D");
+        if (player3D != null)
+        {
+            snappableCheck = player3D.GetComponent<SnappableCheck>();
+        }
+    }
     void Start()
     {
+
         eventInstance1 = RuntimeManager.CreateInstance(eventPath1);
         eventInstance2 = RuntimeManager.CreateInstance(eventPath2);
 
@@ -27,7 +37,7 @@ public class AudioManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Switch Dimension") && !isAllMuted && snapable.allowSnap) // Check if snapping is allowed
+        if (Input.GetButtonDown("Switch Dimension") && !isAllMuted && snappableCheck != null && snappableCheck.allowSnap)
         {
             ToggleMute();
         }

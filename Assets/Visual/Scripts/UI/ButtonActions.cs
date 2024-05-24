@@ -9,8 +9,6 @@ public class ButtonActions : MonoBehaviour, IPointerEnterHandler
     public string hoverFmodEventPath; 
     public GameObject gameObjectToEnable; 
 
-    public bool isQuit = false;
-
     private bool hasBeenClicked = false; 
     
     public void Clicked()
@@ -20,11 +18,12 @@ public class ButtonActions : MonoBehaviour, IPointerEnterHandler
             hasBeenClicked = true;
             TriggerClickFMODEvent();
             EnableGameObject();
-            if (isQuit)
-            {
-                Application.Quit();
-            }
         }
+    }
+    
+    public void Quit()
+    {
+            Application.Quit();
     }
     
     private void TriggerClickFMODEvent()

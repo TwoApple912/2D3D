@@ -9,9 +9,9 @@ public class AdjustChromaticAberration : MonoBehaviour
     public float transitionDuration = 1.0f; 
     public float returnDuration = 1.0f; 
     private bool isNegative = true;
-    public SnappableCheck snapable;
+    private SnappableCheck snapable;
 
-    void Start()
+    void Awake()
     {
         if (postProcessVolume == null)
         {
@@ -21,6 +21,7 @@ public class AdjustChromaticAberration : MonoBehaviour
         {
             Debug.LogError("Chromatic Aberration settings not found on the PostProcessVolume.");
         }
+        snapable = FindObjectOfType<SnappableCheck>();
     }
 
     void Update()
@@ -64,6 +65,4 @@ public class AdjustChromaticAberration : MonoBehaviour
 
         chromaticAberration.intensity.value = endValue;
     }
-
-
 }
