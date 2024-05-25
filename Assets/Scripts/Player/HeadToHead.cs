@@ -12,7 +12,7 @@ public class HeadToHead : MonoBehaviour
         else head = FindObjectOfType<PlayerMovement2D>().transform.Find("Model/Head");
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         head.position = transform.position;
     }
