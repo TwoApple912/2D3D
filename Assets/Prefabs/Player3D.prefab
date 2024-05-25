@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2891942946438519791}
   - component: {fileID: 3010454367945409341}
   - component: {fileID: 8353723830896770692}
+  - component: {fileID: 3135835268978322132}
   m_Layer: 3
   m_Name: Player3D
   m_TagString: Player
@@ -143,6 +144,8 @@ MonoBehaviour:
     m_Bits: 65
   maxJumpHeight: 5
   isJumping: 0
+  coyoteTimeDuration: 0.1
+  jumpBufferingDuration: 0.1
   velocity: {x: 0, y: 0, z: 0}
   currentGravityMultiplier: 1
   gravity: -9.81
@@ -191,13 +194,7 @@ MonoBehaviour:
   walkParticle: {fileID: 4342347444050143786}
   landParticle: {fileID: 129913113675003594}
   walkParticleCooldown: 0.1
-  landEvent:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+  landParticleCooldown: 0.5
 --- !u!114 &8353723830896770692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,6 +212,27 @@ MonoBehaviour:
   dissolveDuration: 3
   finalDelayDuration: 1
   goalReachedParticle: {fileID: 0}
+--- !u!114 &3135835268978322132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2955694196820397284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0eec358128c81a4f92216f64107fbd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathParticle: {fileID: 0}
+  shakeDuration: 0.5
+  transitionDuration: 0.12
+  shakeMagnitude: 0.5
+  new2DOrthoSize: 3.7
+  new2DFarClipPlane: 66
+  new2DFollowOffset: {x: 0, y: 2, z: -37}
+  new3DFOV: 37
+  new3DFarClipPlane: 21
 --- !u!1 &3703102472093356584
 GameObject:
   m_ObjectHideFlags: 0
@@ -10153,6 +10171,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -259972160606440404, guid: d9fd177edfa9aab45b756cbc77a113cf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1912868453361833667}
+    - targetCorrespondingSourceObject: {fileID: -259972160606440404, guid: d9fd177edfa9aab45b756cbc77a113cf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3848745837454675400}
     - targetCorrespondingSourceObject: {fileID: -1450400270514423276, guid: d9fd177edfa9aab45b756cbc77a113cf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3288252429260621112}
@@ -10319,7 +10340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transitioningToNextLevel: 0
-  rotateSpeed: 75
+  rotateSpeed: 12
   steerAtCamera: 0
   steerPercentage: 0
 --- !u!4 &991380936465993872 stripped
@@ -10794,3 +10815,16 @@ MonoBehaviour:
   maxBatches: 15
   meshPoolSize: 256
   interpolate: 0
+--- !u!114 &3848745837454675400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8515403622766658391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d56975b1d4d897e4aa073d7562ede492, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  head: {fileID: 0}

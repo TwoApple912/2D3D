@@ -5,25 +5,40 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Level 1.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/Test Texture 1.unity
-    guid: e7d01fb11d04ff94da12c00362b0fef2
-  - enabled: 1
-    path: Assets/Scenes/Visual Scenes/Level 2.unity
-    guid: a68964202092fbb4fbd06c260c0f3278
+    path: Assets/Scenes/Visual Scenes/Menu/StartUp.unity
+    guid: 108922eff343e174891c2d6253ba5d88
   - enabled: 1
     path: Assets/Scenes/Visual Scenes/Menu/Start Menu.unity
     guid: 686f710f37fe6664a8198e3ebffe5b1f
   - enabled: 1
+    path: Assets/Scenes/Visual Scenes/Transition Scene/Trans Menu.unity
+    guid: 34b43bb5559794241a7cdca18a23a1aa
+  - enabled: 1
     path: Assets/Scenes/Visual Scenes/Transition Scene/Transition.unity
     guid: f5f0887a02054cb43a305564e947038b
+  - enabled: 1
+    path: Assets/Scenes/Visual Scenes/Transition Scene/Transition LS.unity
+    guid: 0b1aece7f88621641ad4bb0a903605a8
+  - enabled: 1
+    path: Assets/Scenes/2DT Level 1.unity
+    guid: a16b97ed6ec9b6943a1ff04ef66ade78
   - enabled: 1
     path: Assets/Scenes/2DT Level 2.unity
     guid: 2b73a78b016092141899da697d00409d
   - enabled: 1
-    path: Assets/Scenes/2DT Level 1.unity
-    guid: a16b97ed6ec9b6943a1ff04ef66ade78
+    path: Assets/Scenes/2DT Level 3.unity
+    guid: c31547149a584db45b599c26cb4839a2
+  - enabled: 1
+    path: Assets/Scenes/2DT Level 4.unity
+    guid: 9b9489dbe19eac1429e8f514042cfa8a
+  - enabled: 1
+    path: Assets/Scenes/3DT Level 1.unity
+    guid: 96011ae2d5065d84eb6fb69fadca19fb
+  - enabled: 1
+    path: Assets/Scenes/3DT Level 2.unity
+    guid: b4add9c2a65f87d43864f29234aca55c
+  - enabled: 1
+    path: Assets/Scenes/3DT Level 3.unity
+    guid: c61d3995876181344974460a1cd64fcf
   m_configObjects: {}

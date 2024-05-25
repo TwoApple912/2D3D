@@ -4,9 +4,11 @@ using UnityEngine;
 public class HandleVisual : MonoBehaviour
 {
     [SerializeField, Multiline] private string notes;
-    
+
     [Header("Components")]
+    private AllowInput input;
     private SwitchDimension dimension;
+    
     private PlayerMovement3D movement3D;
     private PlayerMovement2D movement2D;
     private SnappableCheck _snappableCheck;
@@ -35,6 +37,7 @@ public class HandleVisual : MonoBehaviour
 
     private void Awake()
     {
+        input = GameObject.Find("Game Manager").GetComponent<AllowInput>();
         dimension = GameObject.Find("Game Manager").GetComponent<SwitchDimension>();
         
         movement3D = GetComponentInParent<PlayerMovement3D>();
@@ -70,7 +73,7 @@ public class HandleVisual : MonoBehaviour
     void Update()
     {
         RotateHeadToLeg();
-        ApplySnS();
+        ApplyFallSnS();
 
         DisableDetachedObjectWhenSwitchingDimension();
     }
@@ -84,13 +87,18 @@ public class HandleVisual : MonoBehaviour
         headTransform.rotation = Quaternion.RotateTowards(headTransform.rotation, targetRotation * headTransform.rotation, headRotationSpeed * Time.deltaTime);
     }
 
-    void ApplySnS()
+    public void ApplyJumpSnS()
     {
-        if (Input.GetButtonDown("Jump") && (is3D ? movement3D.isGrounded : movement2D.isGrounded) )
+        snsScript[0].PlaySquashAndStretch();
+        
+        /*if (is3D ? movement3D.isGrounded : movement2D.isGrounded)
         {
             snsScript[0].PlaySquashAndStretch();
-        }
-
+        }*/
+    }
+    
+    void ApplyFallSnS()
+    {
         if ( (is3D ? movement3D.isGrounded : movement2D.isGrounded) && !hasRun)
         {
             snsScript[1].PlaySquashAndStretch();
@@ -106,7 +114,7 @@ public class HandleVisual : MonoBehaviour
         {
             /* The reason why the if-s compare with ThreeDimension and TwoDimension respectively is because it check for
              currentState before SwitchDimension.cs' LateUpdate() takes place to change the currentState */
-            if (is3D && Input.GetButtonDown("Switch Dimension") && _snappableCheck.allowSnap)
+            if (is3D && Input.GetButtonDown("Switch Dimension") && input.allowInput && _snappableCheck.allowSnap)
             {
                 if (dimension.currentState == SwitchDimension.GameState.ThreeDimension) objectToUnparent[i].gameObject.SetActive(false);
             }

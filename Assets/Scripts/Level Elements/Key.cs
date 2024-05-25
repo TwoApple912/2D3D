@@ -16,7 +16,7 @@ public class Key : MonoBehaviour
     [SerializeField] Lock associatedLock;
     [Space]
     [SerializeField] private Material dissolveMaterial;
-    [SerializeField] private float dissolveDuration = 1f;
+    [SerializeField] private float dissolveDuration = 2f;
 
     private bool hasRun = false;
 

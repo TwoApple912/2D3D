@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Destination : MonoBehaviour
@@ -13,7 +14,7 @@ public class Destination : MonoBehaviour
     [SerializeField] private bool Only2D = false;
     [SerializeField] private bool onCorrectAxes = false;
     [Space]
-    [SerializeField] private float requiredStandDuration = 0.75f;
+    [SerializeField] private float requiredHoldTime = 0.75f;
     [Space]
     public string nextScene;
     private enum axes
@@ -28,7 +29,7 @@ public class Destination : MonoBehaviour
 
     private bool hasRun = false; // Use for GoalReached()
     private GameObject player;
-    private float standTime = 0f;
+    private float holdTime = 0f;
 
     private void Awake()
     {
@@ -70,9 +71,10 @@ public class Destination : MonoBehaviour
     {
         if (playerInRange && onCorrectAxes && AccessibilityCheck())
         {
-            standTime += Time.deltaTime;
+            if (Input.GetKey(KeyCode.Q)) holdTime += Time.deltaTime;
+            if (Input.GetButton("Switch Dimension")) holdTime = 0f;
 
-            if (standTime > requiredStandDuration && !hasRun)
+            if (holdTime > requiredHoldTime && !hasRun)
             {
                 TransitionToNextLevel playerTransitionScript = player.GetComponent<TransitionToNextLevel>();
                 if (playerTransitionScript != null)
@@ -81,13 +83,13 @@ public class Destination : MonoBehaviour
 
                     StartCoroutine(playerTransitionScript.BeginTransitionToNextScene(nextScene));
                 }
-
+                
                 goalCamera.SetActive(true);
 
                 hasRun = true;
             }
         }
-        else standTime = 0f;
+        else holdTime = 0f;
     }
 
     void CheckCurrentAxes()

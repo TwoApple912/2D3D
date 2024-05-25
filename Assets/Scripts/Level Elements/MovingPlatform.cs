@@ -1,8 +1,11 @@
 using System;
+using System.Diagnostics;
 using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
+    private SwitchDimension dimension;
+    
     [SerializeField] private Vector3 pointA;
     [SerializeField] private Vector3 pointB;
 
@@ -11,14 +14,24 @@ public class MovingPlatform : MonoBehaviour
     private float progress = 0f;
     private bool movingToB = true;
     public Vector3 lastPosition;
-    [SerializeField] private GameObject player;
-    
+    [SerializeField] private Transform player2D;
+
+    private void Awake()
+    {
+        dimension = GameObject.Find("Game Manager").GetComponent<SwitchDimension>();
+    }
+
     private void Start()
     {
         lastPosition = transform.position;
     }
 
     private void Update()
+    {
+        if (dimension.currentState == SwitchDimension.GameState.ThreeDimension) player2D = null;
+    }
+
+    private void FixedUpdate()
     {
         MovePlatform();
 
@@ -29,7 +42,8 @@ public class MovingPlatform : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            player = other.gameObject;
+            player2D = other.transform;
+            //player2D.position = new Vector3(transform.position.x, player2D.position.y, transform.position.z);
         }
     }
 
@@ -37,7 +51,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            player = null;
+            player2D = null;
         }
     }
 
@@ -71,9 +85,10 @@ public class MovingPlatform : MonoBehaviour
     void CalculateMovementDelta()
     {
         Vector3 deltaPosition = transform.position - lastPosition;
-        if (player != null)
+        if (player2D != null)
         {
-            player.transform.position += deltaPosition;
+            player2D.transform.position += deltaPosition;
+            player2D.GetComponent<PlayerMovement2D>().isGrounded = true;
         }
         
         lastPosition = transform.position;
