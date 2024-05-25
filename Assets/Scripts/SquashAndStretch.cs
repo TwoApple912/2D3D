@@ -1,9 +1,6 @@
 using System;
 using System.Collections;
-using Unity.IO.LowLevel.Unsafe;
-using Unity.VisualScripting;
 using UnityEngine;
-using Random = System.Random;
 
 public class SquashAndStretch : MonoBehaviour
 {
@@ -62,6 +59,11 @@ public class SquashAndStretch : MonoBehaviour
     void Start()
     {
         if (playOnStart) CheckForAndStartCoroutine();
+    }
+
+    private void OnDisable()
+    {
+        if (transformToAffect) transformToAffect.localScale = initialScaleVector;
     }
 
     public void PlaySquashAndStretch() // Call this to perform the animation

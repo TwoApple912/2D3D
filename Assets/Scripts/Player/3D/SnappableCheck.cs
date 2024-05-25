@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,6 +19,7 @@ public class SnappableCheck : MonoBehaviour
     [SerializeField] private float moveDuration = 1.5f;
 
     private Vector3 currentPointForVisual;
+    private List<GameObject> visualizers = new List<GameObject>();
 
     private void Awake()
     {
@@ -36,6 +36,15 @@ public class SnappableCheck : MonoBehaviour
     {
         UpdateAllowSnapBool();
         DrawUnsnappableRay();
+    }
+
+    private void OnDisable()
+    {
+        foreach (GameObject visualizer in visualizers)
+        {
+            Destroy(visualizer);
+        }
+        visualizers.Clear();
     }
 
     void UpdateAllowSnapBool()
@@ -82,6 +91,7 @@ public class SnappableCheck : MonoBehaviour
         if (Input.GetButtonDown("Switch Dimension") && input.allowInput && dimension.currentState == SwitchDimension.GameState.ThreeDimension && !allowSnap)
         {
             GameObject visualizer = Instantiate(visualizerPrefab, transform.position, Quaternion.identity);
+            visualizers.Add(visualizer);
 
             StartCoroutine(MoveVisualizerToPosition(visualizer, currentPointForVisual, moveDuration));
         }
@@ -113,6 +123,7 @@ public class SnappableCheck : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
         Destroy(visualizer);
+        visualizers.Remove(visualizer);
     }
 
     private void OnDrawGizmos()
