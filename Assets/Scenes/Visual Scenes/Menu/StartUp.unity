@@ -457,6 +457,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetAspectRatio: 1.7777778
+  useMainCamera: 1
+  additionalCamera: {fileID: 996278612}
 --- !u!1 &1702356494
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,7 +486,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1702356494}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 64a4ef390d23f8742b3169282b6dd9b4, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: df2f699b0cdd39843b49fafd0fce1e3a, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 996278612}
