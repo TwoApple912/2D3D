@@ -1,8 +1,10 @@
-using System;
 using UnityEngine;
 
 public class CollectibleController : MonoBehaviour
 {
+    [SerializeField] private int numberOfLevels = 7;
+    [Space]
+    [SerializeField] private GameObject[] allStickers;
     [SerializeField] private GameObject[] stickers;
         [SerializeField] private GameObject nes;
         [SerializeField] private GameObject gameboy;
@@ -13,41 +15,33 @@ public class CollectibleController : MonoBehaviour
         [SerializeField] private GameObject wii;
         [SerializeField] private GameObject n3ds;
         [SerializeField] private GameObject nswitch;
-    [SerializeField] private string[] collectiblePlayerPrefsName;
+    [SerializeField] private string[] collectiblePlayerPrefsName= new[]
+    {
+        "Collectible NES",
+        "Collectible Gameboy",
+        "Collectible Nintendo 64",
+        "Collectible Gameboy Advance",
+        "Collectible GameCube",
+        "Collectible Nintendo DS",
+        "Collectible Wii",
+    };
 
     private void Awake()
     {
-        nes = transform.Find("NES Ctrl").gameObject;
-        gameboy = transform.Find("GameBoy").gameObject;
-        n64 = transform.Find("Nin64").gameObject;
-        gba = transform.Find("GBA").gameObject;
-        gamecube = transform.Find("GameCube").gameObject;
-        nds = transform.Find("Nintendo DS").gameObject;
-        wii = transform.Find("Wii Remote").gameObject;
-        n3ds = transform.Find("Nin 3Ds").gameObject;
-        nswitch = transform.Find("Switch").gameObject;
-
-        stickers = new[] { nes, gameboy, n64, gba, gamecube, nds, wii, n3ds, nswitch };
-        collectiblePlayerPrefsName = new[]
-        {
-            "Collectible NES",
-            "Collectible Gameboy",
-            "Collectible Nintendo 64",
-            "Collectible Gameboy Advance",
-            "Collectible GameCube",
-            "Collectible Nintendo DS",
-            "Collectible Wii",
-        };
+        allStickers = new[] { nes, gameboy, n64, gba, gamecube, nds, wii, n3ds, nswitch };
+        stickers = InitializeArray(allStickers, numberOfLevels);
     }
 
     private void Start()
     {
-        for (int i = 0; i < stickers.Length; i++)
+        for (int i = 0; i < allStickers.Length; i++)
         {
-            stickers[i].SetActive(false);
+            allStickers[i].SetActive(false);
         }
         
         CheckAndSpawnCollectibleStickers();
+        
+        if (HaveCollectedAllAvailableCollectibles(numberOfLevels)) RewardRemainingStickers();
     }
 
     void CheckAndSpawnCollectibleStickers()
@@ -59,5 +53,28 @@ public class CollectibleController : MonoBehaviour
                 stickers[i].SetActive(true);
             }
         }
+    }
+
+    void RewardRemainingStickers()
+    {
+        
+    }
+
+    bool HaveCollectedAllAvailableCollectibles(int numberOfLevels)
+    {
+        for (int i = 0; i < numberOfLevels; i++)
+        {
+            if (PlayerPrefs.GetInt(collectiblePlayerPrefsName[i], 0) == 0) return false;
+        }
+
+        return true;
+    }
+
+    public GameObject[] InitializeArray(GameObject[] source, int size)
+    {
+        GameObject[] result = new GameObject[size];
+        for (int i = 0; i < size && i < source.Length; i++) result[i] = source[i];
+
+        return result;
     }
 }

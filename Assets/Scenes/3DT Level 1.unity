@@ -4531,7 +4531,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 41405d003a526844cb96e70e28669491, type: 2}
+  - {fileID: 2100000, guid: 47cb66b6de71c44429ae203ea66535a4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7181,7 +7181,7 @@ PrefabInstance:
     - target: {fileID: 4693028758283746954, guid: 24d1fd98cce8765418cd7bcb50b5f479, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 47cb66b6de71c44429ae203ea66535a4, type: 2}
+      objectReference: {fileID: 2100000, guid: 41405d003a526844cb96e70e28669491, type: 2}
     - target: {fileID: 4960680259932391593, guid: 24d1fd98cce8765418cd7bcb50b5f479, type: 3}
       propertyPath: pointA.x
       value: 14
@@ -12333,6 +12333,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3675d4c244e489f43996941e7ba208ea, type: 3}
+--- !u!1 &7918021242456533761 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8697867526532771081, guid: 3675d4c244e489f43996941e7ba208ea, type: 3}
+  m_PrefabInstance: {fileID: 7918021242456533760}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8281846673457841409
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12361,6 +12366,10 @@ PrefabInstance:
       propertyPath: deathParticle
       value: 
       objectReference: {fileID: 1262216148}
+    - target: {fileID: 1619518394819148279, guid: d51d609459e405842aad232ae0a0be95, type: 3}
+      propertyPath: restartUIText
+      value: 
+      objectReference: {fileID: 7918021242456533761}
     - target: {fileID: 1649771187957109763, guid: d51d609459e405842aad232ae0a0be95, type: 3}
       propertyPath: groundCheckOffset
       value: -0.1
@@ -12607,6 +12616,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2891942946438519791, guid: fab417453f222c146a6f47e247254d51, type: 3}
+      propertyPath: visualizerPrefab
+      value: 
+      objectReference: {fileID: 453620438285958656, guid: e2a6150f2de811d4da2acec3417272b2, type: 3}
     - target: {fileID: 2955694196820397284, guid: fab417453f222c146a6f47e247254d51, type: 3}
       propertyPath: m_Name
       value: Player3D
@@ -12615,6 +12628,10 @@ PrefabInstance:
       propertyPath: deathParticle
       value: 
       objectReference: {fileID: 1262216148}
+    - target: {fileID: 3135835268978322132, guid: fab417453f222c146a6f47e247254d51, type: 3}
+      propertyPath: restartUIText
+      value: 
+      objectReference: {fileID: 7918021242456533761}
     - target: {fileID: 7442089990208445332, guid: fab417453f222c146a6f47e247254d51, type: 3}
       propertyPath: playerColor.b
       value: 0.09803922

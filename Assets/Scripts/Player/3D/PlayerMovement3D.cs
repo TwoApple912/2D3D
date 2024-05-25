@@ -89,8 +89,6 @@ public class PlayerMovement3D : MonoBehaviour
 
     void ApplyGravity()
     {
-        Debug.Log("Begin apply gravity " + velocity.y);
-        
         currentGravityMultiplier = defaultGravityScale;
 
         if (velocity.y > 0 && isJumping)
@@ -105,8 +103,6 @@ public class PlayerMovement3D : MonoBehaviour
         
         velocity.y += gravity * currentGravityMultiplier * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-        
-        Debug.Log("End apply gravity " + velocity.y);
     }
 
     void CalculateMoveVelocity()

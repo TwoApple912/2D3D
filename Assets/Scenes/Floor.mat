@@ -7,12 +7,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Normal
+  m_Name: Floor
   m_Shader: {fileID: 4800000, guid: 851f2d9f112af2f4390a3d702e3e6553, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _MK_ARTISTIC_ANIMATION_STUTTER
+  - _MK_ARTISTIC_DRAWN
   - _MK_COLOR_GRADING_ALBEDO
   - _MK_ENVIRONMENT_REFLECTIONS_AMBIENT
   - _MK_GOOCH_RAMP
@@ -189,7 +190,7 @@ Material:
     - _AlphaClipping: 0
     - _AlphaCutoff: 0.5
     - _Anisotropy: 0
-    - _Artistic: 0
+    - _Artistic: 1
     - _ArtisticFrequency: 50
     - _ArtisticProjection: 0
     - _Blend: 0
@@ -200,7 +201,7 @@ Material:
     - _Brightness: 1
     - _BumpScale: 1
     - _ColorGrading: 1
-    - _Contrast: 1
+    - _Contrast: 0.12
     - _Cutoff: 0.5
     - _DetailBlend: 0
     - _DetailMix: 0.5
@@ -285,7 +286,7 @@ Material:
     - _ThresholdMapScale: 500
     - _UVSec: 0
     - _VertexAnimation: 1
-    - _VertexAnimationIntensity: 0
+    - _VertexAnimationIntensity: 0.01
     - _VertexAnimationStutter: 1
     - _Workflow: 0
     - _WrappedLighting: 1
@@ -297,8 +298,8 @@ Material:
     - _DetailColor: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveBorderColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GoochBrightColor: {r: 0, g: 1, b: 0.12912178, a: 1}
-    - _GoochDarkColor: {r: 0, g: 0.29903284, b: 0.51572317, a: 1}
+    - _GoochBrightColor: {r: 0, g: 0.02745098, b: 1, a: 1}
+    - _GoochDarkColor: {r: 0, g: 0.29803923, b: 0.5176471, a: 1}
     - _IridescenceColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _LightTransmissionColor: {r: 1, g: 0.65, b: 0, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}

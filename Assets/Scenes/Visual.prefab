@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3033196076531638771}
   - component: {fileID: 1009116165169975398}
   - component: {fileID: 2946231458346215536}
-  - component: {fileID: 5370286706387137240}
   m_Layer: 0
   m_Name: GameBoy
   m_TagString: Untagged
@@ -84,25 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5370286706387137240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 79816011461937714}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc94ce5ba77fa1d45ba7c6a0df113ba5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Material: {fileID: 2100000, guid: 7c66dd72d7e3e584eb9e5a6ae84476df, type: 2}
-  Sprite: {fileID: 1425109899, guid: 39f34e4c8c575664586030fcc769769a, type: 3}
-  LayerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  MaxAngle: 90
-  Offset: 0.009
 --- !u!1 &87695789479242775
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,7 +126,6 @@ GameObject:
   - component: {fileID: 2657942732674509672}
   - component: {fileID: 7425827414222890806}
   - component: {fileID: 4002313724703690962}
-  - component: {fileID: 2995925232802717043}
   m_Layer: 0
   m_Name: Switch
   m_TagString: Untagged
@@ -219,25 +198,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2995925232802717043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300531021819649848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc94ce5ba77fa1d45ba7c6a0df113ba5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Material: {fileID: 2100000, guid: 7c66dd72d7e3e584eb9e5a6ae84476df, type: 2}
-  Sprite: {fileID: -2106774065, guid: 39f34e4c8c575664586030fcc769769a, type: 3}
-  LayerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  MaxAngle: 90
-  Offset: 0.009
 --- !u!1 &443391184710988136
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,7 +210,6 @@ GameObject:
   - component: {fileID: 6528639235189600065}
   - component: {fileID: 4533953800667541806}
   - component: {fileID: 4456190083302796505}
-  - component: {fileID: 2250135405909916888}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -358,19 +317,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pausedBG: {fileID: 0}
---- !u!114 &2250135405909916888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 443391184710988136}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c6b37cb1944a054a89af68a6e06541e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetAspectRatio: 1.7777778
 --- !u!1 &1004566735926341666
 GameObject:
   m_ObjectHideFlags: 0
@@ -976,7 +922,6 @@ GameObject:
   - component: {fileID: 7226542005191498881}
   - component: {fileID: 1299419822636153314}
   - component: {fileID: 295633420009971153}
-  - component: {fileID: 2742656656534632888}
   m_Layer: 0
   m_Name: GameCube
   m_TagString: Untagged
@@ -1049,25 +994,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2742656656534632888
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2582984699031276782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc94ce5ba77fa1d45ba7c6a0df113ba5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Material: {fileID: 2100000, guid: 7c66dd72d7e3e584eb9e5a6ae84476df, type: 2}
-  Sprite: {fileID: 1469844232, guid: 39f34e4c8c575664586030fcc769769a, type: 3}
-  LayerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  MaxAngle: 90
-  Offset: 0.009
 --- !u!1 &2677624286515963309
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,9 +1005,8 @@ GameObject:
   - component: {fileID: 2578398542633771167}
   - component: {fileID: 2626070695259694860}
   - component: {fileID: 2545402762105179262}
-  - component: {fileID: 6674445781081871756}
   m_Layer: 0
-  m_Name: Nin 3Ds
+  m_Name: Nin 3DS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1152,25 +1077,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6674445781081871756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2677624286515963309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc94ce5ba77fa1d45ba7c6a0df113ba5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Material: {fileID: 2100000, guid: 7c66dd72d7e3e584eb9e5a6ae84476df, type: 2}
-  Sprite: {fileID: 1935037695, guid: 39f34e4c8c575664586030fcc769769a, type: 3}
-  LayerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  MaxAngle: 90
-  Offset: 0.009
 --- !u!1 &2873739896388062534
 GameObject:
   m_ObjectHideFlags: 0
@@ -2144,7 +2050,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2170
+  m_VersionIndex: 2176
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2252,7 +2158,6 @@ GameObject:
   - component: {fileID: 2468212340669480614}
   - component: {fileID: 2062132781622658153}
   - component: {fileID: 9005666439844953886}
-  - component: {fileID: 6140722144813351235}
   m_Layer: 0
   m_Name: GBA
   m_TagString: Untagged
@@ -2325,25 +2230,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6140722144813351235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2992877143263543557}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc94ce5ba77fa1d45ba7c6a0df113ba5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Material: {fileID: 2100000, guid: 7c66dd72d7e3e584eb9e5a6ae84476df, type: 2}
-  Sprite: {fileID: -151556897, guid: 39f34e4c8c575664586030fcc769769a, type: 3}
-  LayerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  MaxAngle: 18.4
-  Offset: 0.009
 --- !u!1 &3172340599658710359
 GameObject:
   m_ObjectHideFlags: 0
@@ -3039,7 +2925,6 @@ GameObject:
   - component: {fileID: 1113222272862958854}
   - component: {fileID: 6838134836206144295}
   - component: {fileID: 6237129007546863771}
-  - component: {fileID: 1221272679491532674}
   m_Layer: 0
   m_Name: Nin64
   m_TagString: Untagged
@@ -3112,25 +2997,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1221272679491532674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4902482199405506636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc94ce5ba77fa1d45ba7c6a0df113ba5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Material: {fileID: 2100000, guid: 7c66dd72d7e3e584eb9e5a6ae84476df, type: 2}
-  Sprite: {fileID: -809741389, guid: 39f34e4c8c575664586030fcc769769a, type: 3}
-  LayerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  MaxAngle: 90
-  Offset: 0.009
 --- !u!1 &4915335617065668671
 GameObject:
   m_ObjectHideFlags: 0
@@ -3407,7 +3273,6 @@ GameObject:
   - component: {fileID: 1624927366529322719}
   - component: {fileID: 6056060191002958774}
   - component: {fileID: 3951468626801697716}
-  - component: {fileID: 5659924248876545361}
   m_Layer: 0
   m_Name: Nintendo DS
   m_TagString: Untagged
@@ -3480,25 +3345,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5659924248876545361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5856049850708279017}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc94ce5ba77fa1d45ba7c6a0df113ba5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Material: {fileID: 2100000, guid: 7c66dd72d7e3e584eb9e5a6ae84476df, type: 2}
-  Sprite: {fileID: 55967248, guid: 39f34e4c8c575664586030fcc769769a, type: 3}
-  LayerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  MaxAngle: 90
-  Offset: 0.009
 --- !u!1 &5941745688601057723
 GameObject:
   m_ObjectHideFlags: 0
@@ -3543,7 +3389,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 13.25
+  m_Intensity: 15.17
   m_Range: 4.74
   m_SpotAngle: 179
   m_InnerSpotAngle: 4.6
@@ -3635,7 +3481,6 @@ GameObject:
   - component: {fileID: 7096647983238440926}
   - component: {fileID: 622331556814540678}
   - component: {fileID: 8093887200592465861}
-  - component: {fileID: 928570685709517435}
   m_Layer: 0
   m_Name: NES Ctrl
   m_TagString: Untagged
@@ -3708,25 +3553,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &928570685709517435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6974411700345149907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc94ce5ba77fa1d45ba7c6a0df113ba5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Material: {fileID: 2100000, guid: 7c66dd72d7e3e584eb9e5a6ae84476df, type: 2}
-  Sprite: {fileID: -1947683280, guid: 39f34e4c8c575664586030fcc769769a, type: 3}
-  LayerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  MaxAngle: 90
-  Offset: 0.009
 --- !u!1 &7161559467742458894
 GameObject:
   m_ObjectHideFlags: 0
@@ -3736,6 +3562,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3640137227857202704}
+  - component: {fileID: 9216172368694675788}
   m_Layer: 0
   m_Name: GameBoyRetreat
   m_TagString: Untagged
@@ -3760,6 +3587,38 @@ Transform:
   - {fileID: 8880186993253532922}
   m_Father: {fileID: 9123325930773421318}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &9216172368694675788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7161559467742458894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd365e6d46e907041a6e9ef96d53f811, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfLevels: 7
+  allStickers: []
+  stickers: []
+  nes: {fileID: 6974411700345149907}
+  gameboy: {fileID: 79816011461937714}
+  n64: {fileID: 4902482199405506636}
+  gba: {fileID: 2992877143263543557}
+  gamecube: {fileID: 2582984699031276782}
+  nds: {fileID: 5856049850708279017}
+  wii: {fileID: 9169166085229376218}
+  n3ds: {fileID: 2677624286515963309}
+  nswitch: {fileID: 300531021819649848}
+  collectiblePlayerPrefsName:
+  - Collectible NES
+  - Collectible Gameboy
+  - Collectible Nintendo 64
+  - Collectible Gameboy Advance
+  - Collectible GameCube
+  - Collectible Nintendo DS
+  - Collectible Wii
 --- !u!1 &7365525924534843083
 GameObject:
   m_ObjectHideFlags: 0
@@ -4280,7 +4139,6 @@ GameObject:
   - component: {fileID: 4363218053537315619}
   - component: {fileID: 5354042923663457053}
   - component: {fileID: 5143447574058039613}
-  - component: {fileID: 7346408941135777842}
   m_Layer: 0
   m_Name: Wii Remote
   m_TagString: Untagged
@@ -4353,25 +4211,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7346408941135777842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9169166085229376218}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc94ce5ba77fa1d45ba7c6a0df113ba5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Material: {fileID: 2100000, guid: 7c66dd72d7e3e584eb9e5a6ae84476df, type: 2}
-  Sprite: {fileID: -1366965501, guid: 39f34e4c8c575664586030fcc769769a, type: 3}
-  LayerMask:
-    serializedVersion: 2
-    m_Bits: 512
-  MaxAngle: 90
-  Offset: 0.009
 --- !u!1 &9216811482667328421
 GameObject:
   m_ObjectHideFlags: 0

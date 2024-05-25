@@ -11,7 +11,7 @@ public class HazardDetect : MonoBehaviour
     private CinemachineVirtualCamera camera2D;
     private CinemachineVirtualCamera camera3D;
     [SerializeField] private GameObject deathParticle;
-    private GameObject restartUIText;
+    [SerializeField] private GameObject restartUIText;
 
     private AllowInput input;
     [Space]
@@ -38,10 +38,7 @@ public class HazardDetect : MonoBehaviour
     {
         camera2D = GameObject.Find("2D Dimension").transform.Find("2D Camera").GetComponent<CinemachineVirtualCamera>();
         camera3D = GameObject.Find("3D Camera").GetComponent<CinemachineVirtualCamera>();
-        restartUIText = GameObject.Find("Canvas").transform.Find("Restart").gameObject;
         input = GameObject.Find("Game Manager").GetComponent<AllowInput>();
-        
-        Debug.Log("Restart");
     }
 
     private void Update()

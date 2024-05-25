@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using FMOD;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -59,12 +57,15 @@ public class CollectableScript : MonoBehaviour
 
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
         Debug.Log(renderers.Length);
-        MaterialPropertyBlock[] propertyBlocks = new MaterialPropertyBlock[renderers.Length];
-
-        for (int i = 0; i < renderers.Length; i++)
+        
+        foreach (Renderer renderer in renderers)
         {
-            renderers[i].material = dissolveMaterial;
-            propertyBlocks[i] = new MaterialPropertyBlock();
+            Material[] newMaterials = new Material[renderer.materials.Length];
+            for (int i = 0; i < newMaterials.Length; i++)
+            {
+                newMaterials[i] = dissolveMaterial;
+            }
+            renderer.materials = newMaterials;  // Apply new materials array to the renderer
         }
 
         float elapsed = 0;
@@ -74,22 +75,24 @@ public class CollectableScript : MonoBehaviour
         {
             float cutOffValue = Mathf.Lerp(0, 1, elapsed / dissolveDuration);
 
-            for (int i = 0; i < renderers.Length; i++)
+            foreach (Renderer renderer in renderers)
             {
-                propertyBlocks[i].SetFloat("_Cutoff", cutOffValue);
-                propertyBlocks[i].SetColor("_Color", startColor);
-                renderers[i].SetPropertyBlock(propertyBlocks[i]);
+                MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
+                propertyBlock.SetFloat("_Cutoff", cutOffValue);
+                propertyBlock.SetColor("_Color", startColor);
+
+                renderer.SetPropertyBlock(propertyBlock);
             }
 
             elapsed += Time.deltaTime;
             yield return null;
         }
-
-        // Ensure the final state is set for all renderers
-        for (int i = 0; i < renderers.Length; i++)
+        
+        foreach (Renderer renderer in renderers)
         {
-            propertyBlocks[i].SetFloat("_Cutoff", 1.0f);
-            renderers[i].SetPropertyBlock(propertyBlocks[i]);
+            MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
+            propertyBlock.SetFloat("_Cutoff", 1.0f);
+            renderer.SetPropertyBlock(propertyBlock);
         }
 
         Destroy(gameObject);

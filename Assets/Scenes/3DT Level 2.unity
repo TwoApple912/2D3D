@@ -2423,6 +2423,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3675d4c244e489f43996941e7ba208ea, type: 3}
+--- !u!1 &240016362 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8697867526532771081, guid: 3675d4c244e489f43996941e7ba208ea, type: 3}
+  m_PrefabInstance: {fileID: 240016361}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &288237896 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6385543767731704650, guid: 0cd58fd088aaa054e95782003cb1c2d7, type: 3}
@@ -13762,6 +13767,10 @@ PrefabInstance:
       propertyPath: deathParticle
       value: 
       objectReference: {fileID: 769684165918295534}
+    - target: {fileID: 1619518394819148279, guid: d51d609459e405842aad232ae0a0be95, type: 3}
+      propertyPath: restartUIText
+      value: 
+      objectReference: {fileID: 240016362}
     - target: {fileID: 2531517163807975192, guid: d51d609459e405842aad232ae0a0be95, type: 3}
       propertyPath: parentTransform
       value: 
@@ -13995,6 +14004,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2891942946438519791, guid: fab417453f222c146a6f47e247254d51, type: 3}
+      propertyPath: visualizerPrefab
+      value: 
+      objectReference: {fileID: 453620438285958656, guid: e2a6150f2de811d4da2acec3417272b2, type: 3}
     - target: {fileID: 2955694196820397284, guid: fab417453f222c146a6f47e247254d51, type: 3}
       propertyPath: m_Name
       value: Player3D
@@ -14003,6 +14016,10 @@ PrefabInstance:
       propertyPath: deathParticle
       value: 
       objectReference: {fileID: 769684165918295534}
+    - target: {fileID: 3135835268978322132, guid: fab417453f222c146a6f47e247254d51, type: 3}
+      propertyPath: restartUIText
+      value: 
+      objectReference: {fileID: 240016362}
     - target: {fileID: 7442089990208445332, guid: fab417453f222c146a6f47e247254d51, type: 3}
       propertyPath: playerColor.b
       value: 0.9137255

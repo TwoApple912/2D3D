@@ -1334,6 +1334,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: N64
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: dbadc9b584f2cce49a373c9b2632b864, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -3222,7 +3226,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 236e310803f444a4bb5608639768b4e7, type: 2}
+  - {fileID: 2100000, guid: 21baaba81d2364b4d88fd0ab0f8d5a40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8800,6 +8804,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1156194677370940914, guid: bcaae4087668f7442b792018840fe3e0, type: 3}
+      propertyPath: player2D
+      value: 
+      objectReference: {fileID: 8966143305719978297}
+    - target: {fileID: 1156194677370940914, guid: bcaae4087668f7442b792018840fe3e0, type: 3}
+      propertyPath: player3D
+      value: 
+      objectReference: {fileID: 5359240175193355467}
     - target: {fileID: 4047301298290646620, guid: bcaae4087668f7442b792018840fe3e0, type: 3}
       propertyPath: m_Name
       value: 3D Camera
@@ -8834,15 +8846,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8983755036416501786, guid: bcaae4087668f7442b792018840fe3e0, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.14747399
+      value: 0.147474
       objectReference: {fileID: 0}
     - target: {fileID: 8983755036416501786, guid: bcaae4087668f7442b792018840fe3e0, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000017018243
+      value: -0.000000017018252
       objectReference: {fileID: 0}
     - target: {fileID: 8983755036416501786, guid: bcaae4087668f7442b792018840fe3e0, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000002537493
+      value: 0.0000000025374949
       objectReference: {fileID: 0}
     - target: {fileID: 8983755036416501786, guid: bcaae4087668f7442b792018840fe3e0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -9111,6 +9123,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2891942946438519791, guid: fab417453f222c146a6f47e247254d51, type: 3}
+      propertyPath: visualizerPrefab
+      value: 
+      objectReference: {fileID: 453620438285958656, guid: e2a6150f2de811d4da2acec3417272b2, type: 3}
     - target: {fileID: 2955694196820397284, guid: fab417453f222c146a6f47e247254d51, type: 3}
       propertyPath: m_Name
       value: Player3D

@@ -215,7 +215,7 @@ Material:
     - _DissolveBorderSize: 0.25
     - _DissolveMapScale: 1
     - _DrawnClampMax: 0.25
-    - _DrawnClampMin: 0
+    - _DrawnClampMin: 0.023
     - _DrawnMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
@@ -286,7 +286,7 @@ Material:
     - _ThresholdMapScale: 500
     - _UVSec: 0
     - _VertexAnimation: 1
-    - _VertexAnimationIntensity: 0.03
+    - _VertexAnimationIntensity: 0.01
     - _VertexAnimationStutter: 1
     - _Workflow: 0
     - _WrappedLighting: 1
@@ -298,8 +298,8 @@ Material:
     - _DetailColor: {r: 1, g: 1, b: 1, a: 1}
     - _DissolveBorderColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GoochBrightColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GoochDarkColor: {r: 0, g: 1, b: 0.6289134, a: 1}
+    - _GoochBrightColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GoochDarkColor: {r: 0.14326763, g: 0, b: 1, a: 1}
     - _IridescenceColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _LightTransmissionColor: {r: 1, g: 0.65, b: 0, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}

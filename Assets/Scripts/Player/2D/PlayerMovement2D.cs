@@ -96,8 +96,6 @@ public class PlayerMovement2D : MonoBehaviour
         ApplyGravity();
         
         //CheckSteps();
-        
-        Debug.Log(rb.velocity);
     }
 
     private void OnDisable()
@@ -213,7 +211,6 @@ public class PlayerMovement2D : MonoBehaviour
         velocity.z = Mathf.MoveTowards(velocity.z, desiredVelocity.z, maxSpeedChange);
 
         rb.velocity = velocity;
-        Debug.Log(rb.velocity);
     }
 
     void Jump()
