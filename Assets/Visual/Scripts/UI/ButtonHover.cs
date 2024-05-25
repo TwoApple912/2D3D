@@ -60,4 +60,9 @@ public class ButtonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             animator.SetBool(animationBool, false);
         }
     }
+
+    public void quit()
+    {
+        Application.Quit();
+    }
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public string eventPath1; 
-    public string eventPath2; 
+    public string startFirst; 
+    public string startSecond; 
     public string snapTo2DEventPath; 
 
     private EventInstance eventInstance1;
@@ -26,8 +26,8 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
 
-        eventInstance1 = RuntimeManager.CreateInstance(eventPath1);
-        eventInstance2 = RuntimeManager.CreateInstance(eventPath2);
+        eventInstance1 = RuntimeManager.CreateInstance(startSecond);
+        eventInstance2 = RuntimeManager.CreateInstance(startFirst);
 
         eventInstance1.start();
         eventInstance2.start();

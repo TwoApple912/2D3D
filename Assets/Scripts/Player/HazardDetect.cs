@@ -40,6 +40,8 @@ public class HazardDetect : MonoBehaviour
         camera3D = GameObject.Find("3D Camera").GetComponent<CinemachineVirtualCamera>();
         restartUIText = GameObject.Find("Canvas").transform.Find("Restart").gameObject;
         input = GameObject.Find("Game Manager").GetComponent<AllowInput>();
+        
+        Debug.Log("Restart");
     }
 
     private void Update()
