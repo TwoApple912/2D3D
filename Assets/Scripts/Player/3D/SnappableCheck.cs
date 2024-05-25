@@ -1,18 +1,32 @@
 
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SnappableCheck : MonoBehaviour
 {
+    private SwitchDimension dimension;
     private SnapDimensionToAxes _snapDimensionToAxes;
+    private AllowInput input;
+    
     private Collider collider;
 
     public bool allowSnap = true;
     [Space]
     [SerializeField] private LayerMask checkLayer;
 
-    private void Start()
+    [Header("Obstruct Visualizer")]
+    [SerializeField] private GameObject visualizerPrefab;
+    [SerializeField] private float moveDuration = 1.5f;
+
+    private Vector3 currentPointForVisual;
+
+    private void Awake()
     {
+        dimension = GameObject.Find("Game Manager").GetComponent<SwitchDimension>();
         _snapDimensionToAxes = GameObject.Find("2D Dimension").GetComponent<SnapDimensionToAxes>();
+        input = GameObject.Find("Game Manager").GetComponent<AllowInput>();
+        
         collider = GetComponent<Collider>();
 
         checkLayer = LayerMask.GetMask("Default", "Level Element");
@@ -21,6 +35,7 @@ public class SnappableCheck : MonoBehaviour
     private void Update()
     {
         UpdateAllowSnapBool();
+        DrawUnsnappableRay();
     }
 
     void UpdateAllowSnapBool()
@@ -49,22 +64,55 @@ public class SnappableCheck : MonoBehaviour
 
     bool CheckRaycasts(Vector3[] points, Vector3 direction, float length)
     {
-        int hitCount = 0;
-        
         foreach (Vector3 point in points)
         {
+            RaycastHit hit;
             Debug.DrawRay(point, direction * length, Color.yellow);
-            if (Physics.Raycast(point, direction, length, checkLayer))
+            if (Physics.Raycast(point, direction, out hit, length, checkLayer))
             {
-                hitCount++;
+                currentPointForVisual = hit.point;
+                return false;
             }
         }
+        return true;
+    }
 
-        if (hitCount > points.Length / 2)
+    void DrawUnsnappableRay()
+    {
+        if (Input.GetButtonDown("Switch Dimension") && input.allowInput && dimension.currentState == SwitchDimension.GameState.ThreeDimension && !allowSnap)
         {
-            return false;
+            GameObject visualizer = Instantiate(visualizerPrefab, transform.position, Quaternion.identity);
+
+            StartCoroutine(MoveVisualizerToPosition(visualizer, currentPointForVisual, moveDuration));
         }
-        else return true;
+    }
+
+    IEnumerator MoveVisualizerToPosition(GameObject visualizer, Vector3 target, float duration)
+    {
+        float time = 0;
+        Vector3 startPosition = visualizer.transform.position;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            float t = time / duration;
+
+            t = Mathf.SmoothStep(0, 1, t);
+
+            visualizer.transform.position = Vector3.Lerp(startPosition, target, t);
+
+            yield return null;
+        }
+
+        visualizer.transform.position = target;
+        visualizer.GetComponent<ParticleSystem>().Stop();
+        foreach (Transform child in visualizer.transform)
+        {
+            if (child.name == "Burst") child.gameObject.SetActive(true);
+        }
+
+        yield return new WaitForSeconds(2f);
+        Destroy(visualizer);
     }
 
     private void OnDrawGizmos()

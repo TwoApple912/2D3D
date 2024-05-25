@@ -32,25 +32,28 @@ public class RotateModel : MonoBehaviour
 
     void RotateToDirection()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-
-        // Camera-relative movement vectors
-        Vector3 forward = Camera.main.transform.forward;
-        Vector3 right = Camera.main.transform.right;
-        forward.y = 0;  // Remove any vertical component
-        right.y = 0;    // Remove any vertical component
-        forward.Normalize();  // Ensure these vectors are normalized
-        right.Normalize();
-
-        // Desired direction based on camera perspective and player input
-        Vector3 desiredDirection = (forward * moveVertical + right * moveHorizontal).normalized;
-
-        if (desiredDirection.magnitude > 0.1f)
+        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
-            // Calculate the target rotation based on desired direction
-            Quaternion targetRotation = Quaternion.LookRotation(desiredDirection, Vector3.up);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+            float moveHorizontal = Input.GetAxis("Horizontal");
+            float moveVertical = Input.GetAxis("Vertical");
+
+            // Camera-relative movement vectors
+            Vector3 forward = Camera.main.transform.forward;
+            Vector3 right = Camera.main.transform.right;
+            forward.y = 0; // Remove any vertical component
+            right.y = 0; // Remove any vertical component
+            forward.Normalize(); // Ensure these vectors are normalized
+            right.Normalize();
+
+            // Desired direction based on camera perspective and player input
+            Vector3 desiredDirection = (forward * moveVertical + right * moveHorizontal).normalized;
+
+            if (desiredDirection.magnitude > 0.1f)
+            {
+                // Calculate the target rotation based on desired direction
+                Quaternion targetRotation = Quaternion.LookRotation(desiredDirection, Vector3.up);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
+            }
         }
         
         /*Vector3 movementDirection = Vector3.zero; // Rotate to move direction

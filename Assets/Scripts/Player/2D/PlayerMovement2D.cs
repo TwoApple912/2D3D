@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Vector3 = UnityEngine.Vector3;
 
@@ -8,23 +9,26 @@ public class PlayerMovement2D : MonoBehaviour
     
     private Rigidbody rb;
     private CapsuleCollider capsuleCollider;
-
+    private HandleVisual visual;
+        
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 4f;
     [SerializeField] private float groundMaxAcceleration = 35f;
     [SerializeField] private float airMaxAcceleration = 20f;
     [SerializeField] private bool isJumping = false;
     [SerializeField] private float jumpHeight = 5f;
+    [SerializeField] private float jumpCoolDown = 0.25f;
 
     private Vector3 desiredVelocity;
     private float acceleration;
     private float jumpSpeed;
+    private float lastJumpTime = 0;
 
     [Header("Step Climb & Slope Check")]
     [SerializeField] private float slopeThreshold = 45f;
     [SerializeField] private Vector3 slopeMoveDirection;
-    /*[SerializeField] private bool lowerStepDetected;
-    [Space]
+    [SerializeField] private bool lowerStepDetected;
+    /*[Space]
     [SerializeField] private float stepHeight = 0.3f;
     [Tooltip("This is to determine how much character elevates upward when registered a stepable step. Updates every frames so it should create a smooth transition with small steps.")]
     [SerializeField] private float stepSmooth = 0.1f;
@@ -35,16 +39,23 @@ public class PlayerMovement2D : MonoBehaviour
     [SerializeField] private GameObject stepBase;
     [SerializeField] private GameObject stepUpper;
     [SerializeField] private GameObject stepLower;*/
+
+    [Header("Coyote Time & Jump Buffering")]
+    [SerializeField] private float coyoteTimeDuration = 0.2f;
+    [SerializeField] private float jumpBufferDuration = 0.2f;
     
     [Header("Ground Check")]
     public bool isGrounded;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private float groundCheckOffset = 0.1f;
+    [SerializeField] private float groundCheckOffset = -0.1f;
 
     [Header("Gravity")]
     [SerializeField] private float downwardGravityMultiplier = 5f;
     [SerializeField] private float upwardGravityMultiplier = 1.7f;
     private float defaultGravityScale = 1f;
+    
+    private float coyoteTimeCounter;
+    private float jumpBufferCounter;
 
     void Awake()
     {
@@ -52,7 +63,8 @@ public class PlayerMovement2D : MonoBehaviour
         
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
-        
+        visual = GetComponentInChildren<HandleVisual>();
+
         /*stepBase = transform.Find("stepBase").gameObject;
         stepUpper = transform.Find("stepUpper").gameObject;
         stepLower = transform.Find("stepLower").gameObject;
@@ -63,7 +75,12 @@ public class PlayerMovement2D : MonoBehaviour
 
     void Update()
     {
-        if (input.allowInput) Jump();
+        if (input.allowInput)
+        {
+            UpdateCoyoteTimeAndJumpBufferVariables();
+            
+            Jump();
+        }
         
         GroundCheck();
         CalculateMoveVelocity();
@@ -78,7 +95,15 @@ public class PlayerMovement2D : MonoBehaviour
         
         ApplyGravity();
         
-        CheckSteps();
+        //CheckSteps();
+        
+        Debug.Log(rb.velocity);
+    }
+
+    private void OnDisable()
+    {
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
     }
 
     private void OnCollisionExit(Collision other)
@@ -119,20 +144,23 @@ public class PlayerMovement2D : MonoBehaviour
         Vector3 direction = (end - start).normalized;
         float distance = Vector3.Distance(start, end);
 
-        if (Physics.SphereCast(start, capsuleCollider.radius, direction, out hit, distance, groundLayer))
+        if (Physics.SphereCast(start, capsuleCollider.radius - 0.1f, direction, out hit, distance, groundLayer))
         {
             isGrounded = true;
+            coyoteTimeCounter = coyoteTimeDuration;
+            rb.useGravity = false;
         }
         else
         {
             isGrounded = false;
+            rb.useGravity = true;
         }
     }
 
     void ApplyGravity()
     {
         float gravityMultiplier = defaultGravityScale;
-        
+
         if (rb.velocity.y > 0 && isJumping)
         {
             gravityMultiplier = upwardGravityMultiplier;
@@ -172,12 +200,7 @@ public class PlayerMovement2D : MonoBehaviour
         Vector3 localMovement = new Vector3(moveHorizontal, 0, 0);
         Vector3 moveDirection = transform.TransformDirection(localMovement);
         
-        if (!OnSlope()) desiredVelocity = moveDirection * Mathf.Max(moveSpeed, 0);
-        else
-        {
-            slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
-            desiredVelocity = slopeMoveDirection * Mathf.Max(moveSpeed, 0);
-        }
+        desiredVelocity = moveDirection * Mathf.Max(moveSpeed, 0);
     }
     
     void Move()
@@ -190,31 +213,44 @@ public class PlayerMovement2D : MonoBehaviour
         velocity.z = Mathf.MoveTowards(velocity.z, desiredVelocity.z, maxSpeedChange);
 
         rb.velocity = velocity;
+        Debug.Log(rb.velocity);
     }
 
     void Jump()
     {
-        if (isGrounded && Input.GetButtonDown("Jump"))
+        if ((isGrounded || coyoteTimeCounter > 0) && jumpBufferCounter > 0 && Time.time >= lastJumpTime + jumpCoolDown)
         {
             isJumping = true;
+            visual.ApplyJumpSnS();
             
             jumpSpeed = Mathf.Sqrt(-2f * Physics.gravity.y * jumpHeight);
 
             if (rb.velocity.y > 0)
             {
-                jumpSpeed = Mathf.Max(jumpSpeed - rb.velocity.y, 0f);
+                //jumpSpeed = Mathf.Max(jumpSpeed - rb.velocity.y, 0f);
             }
             else if (rb.velocity.y < 0)
             {
-                jumpSpeed += Mathf.Abs(rb.velocity.y);
+                //jumpSpeed += Mathf.Abs(rb.velocity.y);
             }
 
             Vector3 velocity = rb.velocity;
             velocity.y += jumpSpeed;
             rb.velocity = velocity;
+            
+            jumpBufferCounter = 0;
+            coyoteTimeCounter = 0;
+            lastJumpTime = Time.time;
         }
 
         if (Input.GetButtonUp("Jump")) isJumping = false;
+    }
+
+    void UpdateCoyoteTimeAndJumpBufferVariables()
+    {
+        if (Input.GetButtonDown("Jump")) jumpBufferCounter = jumpBufferDuration;
+        if (jumpBufferCounter > 0) jumpBufferCounter -= Time.deltaTime;
+        if (coyoteTimeCounter > 0) coyoteTimeCounter -= Time.deltaTime;
     }
 
     void CheckSteps()

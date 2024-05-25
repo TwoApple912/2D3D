@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class PlayerMovement3D : MonoBehaviour
 {
+    [SerializeField] private CinemachineVirtualCamera camera3D;
     private AllowInput input;
     
     private CharacterController controller;
-
-    [SerializeField] private CinemachineVirtualCamera camera3D;
-
+    private HandleVisual visual;
+    
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 7f;
     [SerializeField] private float groundMaxMoveSpeed = 35f;
@@ -25,6 +25,13 @@ public class PlayerMovement3D : MonoBehaviour
     private Vector3 desiredVelocity;
     private float acceleration;
     private Vector3 currentMoveVelocity;
+
+    [Header("Coyote Time & Jump Buffering")]
+    [SerializeField] float coyoteTimeCounter;
+    [SerializeField] private float jumpBufferCounter;
+    [Space]
+    [SerializeField] private float coyoteTimeDuration = 0.2f;
+    [SerializeField] private float jumpBufferingDuration = 0.2f;
     
     [Header("Gravity")]
     [SerializeField] private Vector3 velocity;
@@ -42,6 +49,7 @@ public class PlayerMovement3D : MonoBehaviour
         input = GameObject.Find("Game Manager").GetComponent<AllowInput>();
         
         controller = GetComponent<CharacterController>();
+        visual = GetComponentInChildren<HandleVisual>();
 
         camera3D = GameObject.Find("3D Camera").GetComponent<CinemachineVirtualCamera>();
     }
@@ -50,6 +58,8 @@ public class PlayerMovement3D : MonoBehaviour
     {
         if (input.allowInput)
         {
+            UpdateCoyoteTimeAndJumpBufferVariables();
+            
             Move();
             Jump();
         }
@@ -70,10 +80,17 @@ public class PlayerMovement3D : MonoBehaviour
         RaycastHit hit;
         isGrounded = Physics.SphereCast(transform.position, checkRadius, Vector3.down, out hit, checkDistance, groundLayer);
         DebugDrawCapsule(transform.position, transform.position + Vector3.down * checkDistance, checkRadius, isGrounded ? Color.blue : Color.red);
+
+        if (isGrounded)
+        {
+            coyoteTimeCounter = coyoteTimeDuration;
+        }
     }
 
     void ApplyGravity()
     {
+        Debug.Log("Begin apply gravity " + velocity.y);
+        
         currentGravityMultiplier = defaultGravityScale;
 
         if (velocity.y > 0 && isJumping)
@@ -88,6 +105,8 @@ public class PlayerMovement3D : MonoBehaviour
         
         velocity.y += gravity * currentGravityMultiplier * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+        
+        Debug.Log("End apply gravity " + velocity.y);
     }
 
     void CalculateMoveVelocity()
@@ -125,9 +144,10 @@ public class PlayerMovement3D : MonoBehaviour
 
     void Jump()
     {
-        if (isGrounded && Input.GetButtonDown("Jump"))
+        if ((isGrounded || coyoteTimeCounter > 0) && jumpBufferCounter > 0)
         {
             isJumping = true;
+            visual.ApplyJumpSnS();
             
             velocity.y = Mathf.Sqrt(maxJumpHeight * -2 * gravity);
             
@@ -139,9 +159,21 @@ public class PlayerMovement3D : MonoBehaviour
             {
                 velocity.y += Mathf.Abs(controller.velocity.y);
             }
+            
+            controller.Move(velocity * Time.deltaTime);
+            
+            jumpBufferCounter = 0;
+            coyoteTimeCounter = 0;
         }
 
         if (Input.GetButtonUp("Jump")) isJumping = false;
+    }
+
+    void UpdateCoyoteTimeAndJumpBufferVariables()
+    {
+        if (Input.GetButtonDown("Jump")) jumpBufferCounter = jumpBufferingDuration;
+        if (jumpBufferCounter > 0) jumpBufferCounter -= Time.deltaTime;
+        if (coyoteTimeCounter > 0) coyoteTimeCounter -= Time.deltaTime;
     }
 
     void DebugDrawCapsule(Vector3 start, Vector3 end, float radius, Color color)
