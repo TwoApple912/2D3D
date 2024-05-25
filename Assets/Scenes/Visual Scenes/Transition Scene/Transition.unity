@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1405,6 +1405,7 @@ MonoBehaviour:
   maxRotationY: 14
   maxRotationZ: 0
   currentCam: {fileID: 2091428150}
+  pressESC: 1
 --- !u!64 &195656637
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1439,14 +1440,13 @@ GameObject:
   - component: {fileID: 495189463}
   - component: {fileID: 495189462}
   - component: {fileID: 495189465}
-  - component: {fileID: 495189464}
   m_Layer: 0
   m_Name: 'Camera '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &495189461
 Transform:
   m_ObjectHideFlags: 0
@@ -1524,7 +1524,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: a26b748679fea8b4893996207c23a162, type: 2}
+  m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
@@ -1534,22 +1534,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &495189464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 495189460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f1da63591dc67445b632e87664be9fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shader: {fileID: 4800000, guid: 703b245f98d111d418d988ba74eefbce, type: 3}
-  pixelSizeX: 10
-  pixelSizeY: 10
-  lockXY: 1
 --- !u!114 &495189465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1788,6 +1772,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneToLoad: Start Menu
+  isClicked: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -2068,6 +2053,7 @@ GameObject:
   - component: {fileID: 1164005778}
   - component: {fileID: 1164005779}
   - component: {fileID: 1164005780}
+  - component: {fileID: 1164005781}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: Untagged
@@ -2248,6 +2234,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attenuationObject: {fileID: 0}
+--- !u!114 &1164005781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1164005774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c6b37cb1944a054a89af68a6e06541e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetAspectRatio: 1.7777778
+  useMainCamera: 0
+  additionalCamera: {fileID: 2091428150}
 --- !u!1 &1254171807
 GameObject:
   m_ObjectHideFlags: 0
@@ -2804,7 +2805,6 @@ MonoBehaviour:
   clickFmodEventPath: 
   hoverFmodEventPath: event:/Button
   gameObjectToEnable: {fileID: 0}
-  isQuit: 0
 --- !u!1 &1579907363
 GameObject:
   m_ObjectHideFlags: 0
@@ -3175,7 +3175,6 @@ MonoBehaviour:
   clickFmodEventPath: event:/Remove Cartridge
   hoverFmodEventPath: event:/Button
   gameObjectToEnable: {fileID: 7802045350362372322}
-  isQuit: 0
 --- !u!1 &2004806719
 GameObject:
   m_ObjectHideFlags: 0
