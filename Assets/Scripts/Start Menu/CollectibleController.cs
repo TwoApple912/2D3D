@@ -32,7 +32,7 @@ public class CollectibleController : MonoBehaviour
         stickers = InitializeArray(allStickers, numberOfLevels);
     }
 
-    private void Start()
+    private void FixedUpdate()
     {
         for (int i = 0; i < allStickers.Length; i++)
         {
@@ -57,7 +57,7 @@ public class CollectibleController : MonoBehaviour
 
     void RewardRemainingStickers()
     {
-        
+        // TODO: Reward remaining stickers if all available ones are collected.
     }
 
     bool HaveCollectedAllAvailableCollectibles(int numberOfLevels)

@@ -7,6 +7,8 @@ public class Destination : MonoBehaviour
     private SwitchDimension dimension;
     private SnapDimensionToAxes _snapDimensionToAxes;
     private AllowInput input;
+
+    public bool goalReached = false;
     
     [SerializeField] private bool accessible = true;
     [SerializeField] private bool playerInRange = false;
@@ -86,6 +88,7 @@ public class Destination : MonoBehaviour
                 
                 goalCamera.SetActive(true);
 
+                goalReached = true;
                 hasRun = true;
             }
         }

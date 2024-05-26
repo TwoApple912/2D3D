@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class RotateModel : MonoBehaviour
 {
+    private AllowInput input;
+    
     private Rigidbody rb;
     private CharacterController controller;
 
@@ -17,6 +19,7 @@ public class RotateModel : MonoBehaviour
 
     private void Start()
     {
+        input = GameObject.Find("Game Manager").GetComponent<AllowInput>();
         rb = GetComponentInParent<Rigidbody>();
         controller = GetComponentInParent<CharacterController>();
         if (controller != null) lastPosition = transform.parent.position;
@@ -32,7 +35,7 @@ public class RotateModel : MonoBehaviour
 
     void RotateToDirection()
     {
-        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
+        if ((Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) && input.allowInput)
         {
             float moveHorizontal = Input.GetAxis("Horizontal");
             float moveVertical = Input.GetAxis("Vertical");

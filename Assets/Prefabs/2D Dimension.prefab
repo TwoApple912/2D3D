@@ -9854,7 +9854,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 4
   groundMaxAcceleration: 35
-  airMaxAcceleration: 20
+  airMaxAcceleration: 30
   isJumping: 0
   jumpHeight: 5
   jumpCoolDown: 0.25
@@ -9933,6 +9933,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathParticle: {fileID: 0}
+  restartUIText: {fileID: 0}
   shakeDuration: 0.25
   transitionDuration: 0.12
   deathParticleDelay: 0.1

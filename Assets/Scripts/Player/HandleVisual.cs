@@ -1,3 +1,4 @@
+using System;
 using TrailsFX;
 using UnityEngine;
 
@@ -69,7 +70,7 @@ public class HandleVisual : MonoBehaviour
     {
         ReenableDetachedObjectWhenSwitchingDimension();
     }
-    
+
     void Update()
     {
         RotateHeadToLeg();

@@ -302,9 +302,9 @@ MonoBehaviour:
   playerInRange: 0
   Only2D: 0
   onCorrectAxes: 0
+  requiredHoldTime: 0.666
   nextScene: 
   faceDirection: 3
-  key: {fileID: 0}
   goalCamera: {fileID: 0}
   goalReachedParticle: {fileID: 0}
 --- !u!33 &7350988697112963610

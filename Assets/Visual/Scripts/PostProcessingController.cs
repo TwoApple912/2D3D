@@ -4,6 +4,8 @@ using System.Collections;
 
 public class AdjustChromaticAberration : MonoBehaviour
 {
+    private AllowInput input;
+    
     public PostProcessVolume postProcessVolume;
     private ChromaticAberration chromaticAberration;
     public float transitionDuration = 1.0f; 
@@ -13,6 +15,8 @@ public class AdjustChromaticAberration : MonoBehaviour
 
     void Awake()
     {
+        input = GameObject.Find("Game Manager").GetComponent<AllowInput>();
+        
         if (postProcessVolume == null)
         {
            return;
@@ -26,7 +30,7 @@ public class AdjustChromaticAberration : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Switch Dimension"))
+        if (Input.GetButtonDown("Switch Dimension") && input.allowInput)
         {
             if (snapable.allowSnap)
             {
